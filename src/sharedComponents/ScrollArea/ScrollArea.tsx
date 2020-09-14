@@ -1,6 +1,6 @@
 import React from "react"
 import { Frame, FrameProps } from "../Grid/Frame"
-import styles from "./ScrollArea.module.css"
+import styles from "./ScrollArea.module.scss"
 
 export interface ScrollAreaProps {
     x?: boolean

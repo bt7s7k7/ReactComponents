@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Home } from './routes/Home/Home';
-import "./sharedComponents/body.css";
-import styles from "./sharedComponents/index.module.css";
-import "./sharedComponents/variables.css";
+import "./sharedComponents/body.scss";
+import "./sharedComponents/global.scss";
+import styles from "./sharedComponents/index.module.scss";
 
 let root = document.getElementById('root')
 

@@ -1,0 +1,6 @@
+@use "../common.scss";
+
+.page {
+    height: 100vh;
+    @include common.flexbox;
+}

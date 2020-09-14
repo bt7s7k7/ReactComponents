@@ -1,0 +1,12 @@
+@use "./common.scss";
+
+:root {
+    @include common.defaultSizes;
+
+    @include common.defaultColors;
+
+    @include common.defaultFontSize;
+
+    @include common.defaultFonts;  
+}
+

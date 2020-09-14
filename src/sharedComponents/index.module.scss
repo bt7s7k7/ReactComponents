@@ -1,6 +1,7 @@
+@use "./common.scss";
+
 .root {
-    flex-direction: column;
-    display: flex;
+    @include common.flexbox;
     height: 100vh;
 }
 

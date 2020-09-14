@@ -1,9 +1,10 @@
+@use "../common.scss";
+
 .scrollArea {
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
     contain: strict;
     flex: 1 1;
+    @include common.flexbox;
 }
 
 .scrollAreaY {

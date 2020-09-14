@@ -1,6 +1,6 @@
 import React from "react"
 import { StyleBuilder } from "../StyleBuilder"
-import styles from "./TextStyle.module.css"
+import styles from "./TextStyle.module.scss"
 
 export interface TextStyleProps {
     color?: React.CSSProperties["color"],

@@ -1,0 +1,18 @@
+@use "../common.scss";
+
+.frame {
+    position: relative;
+    align-items: stretch;
+    justify-content: flex-start;
+    background-color: var(--background-color);
+    @include common.flexbox;
+}
+
+.center {
+    align-items: center;
+    justify-content: space-around;
+}
+
+.fill {
+    flex: 1 1
+}
