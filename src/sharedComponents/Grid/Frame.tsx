@@ -1,4 +1,5 @@
 import React from "react"
+import styles from "./Frame.module.css"
 
 export interface FrameProps {
     basis?: React.CSSProperties["flexBasis"]
@@ -40,8 +41,6 @@ export let Frame: React.FC<FrameProps> = ({
         justifyContent: alignMain,
         alignItems: alignCross,
         display: "flex"
-    }}>{children}</div>
+    }} className={styles.frame}>{children}</div>
 }
 
-export let Col: typeof Frame = (props) => <Frame {...{ ...props, direction: "column" }} />
-export let Row: typeof Frame = (props) => <Frame {...{ ...props, direction: "row" }} />

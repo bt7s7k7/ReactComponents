@@ -1,0 +1,15 @@
+.scrollArea {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    contain: strict;
+    flex: 1 1;
+}
+
+.scrollAreaY {
+    overflow-y: scroll;
+}
+
+.scrollAreaX {
+    overflow-x: scroll;
+}

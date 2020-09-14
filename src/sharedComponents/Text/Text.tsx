@@ -1,5 +1,5 @@
 import React from "react"
-import { Frame, FrameProps } from "../Grid/Grid"
+import { Frame, FrameProps } from "../Grid/Frame"
 import { TextStyle, TextStyleProps } from "./TextStyle"
 
 export let Text: React.FC<FrameProps & TextStyleProps> = (props) => {
