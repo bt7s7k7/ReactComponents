@@ -1,3 +1,19 @@
 :root {
-    --gap-size: 4px
+    --gap-size: 4px;
+
+    --hover-color: #e0ffff;
+    --active-color: #9cff9c;
+    --confirm-color: #02ef2a;
+    --delete-color: #ff2c14;
+    --link-color: #005dff;
+    --background-color: #ffffff;
+    --foreground-color: #000000;
+
+    --normal-text-size: 14px;
+    --header-text-size: 42px;
+
+    --normal-font: Verdana, Geneva, Tahoma, sans-serif;
+    --monospace-font: 'Courier New', Courier, monospace;
+    --serif-font: 'Times New Roman', Times, serif;
+
 }

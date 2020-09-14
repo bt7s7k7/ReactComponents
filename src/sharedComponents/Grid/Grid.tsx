@@ -7,7 +7,8 @@ export interface FrameProps {
     fill?: boolean
     alignCross?: React.CSSProperties["alignItems"]
     alignMain?: React.CSSProperties["justifyContent"]
-    direction?: React.CSSProperties["flexDirection"]
+    direction?: React.CSSProperties["flexDirection"],
+    center?: boolean
 }
 
 export let Frame: React.FC<FrameProps> = ({
@@ -18,11 +19,17 @@ export let Frame: React.FC<FrameProps> = ({
     fill = false,
     alignCross = "stretch",
     alignMain = "flex-start",
-    direction = "column"
+    direction = "column",
+    center = false
 }) => {
     if (fill) {
         grow = 1
         shrink = 1
+    }
+
+    if (center) {
+        alignCross = "center"
+        alignMain = "space-around"
     }
 
     return <div style={{
