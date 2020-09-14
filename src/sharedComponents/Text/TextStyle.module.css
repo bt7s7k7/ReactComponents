@@ -1,0 +1,10 @@
+.textStyle {
+    color: var(--foreground-color);
+    font-size: var(--normal-text-size);   
+    font-weight: normal;
+    font-family: var(--normal-font);
+}
+
+.bold {
+    font-weight: normal;
+}

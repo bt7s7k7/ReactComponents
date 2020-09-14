@@ -1,32 +1,36 @@
 import React from "react"
-import { colors, fonts, textSizes } from "../constants"
+import { StyleBuilder } from "../StyleBuilder"
+import styles from "./TextStyle.module.css"
 
 export interface TextStyleProps {
     color?: React.CSSProperties["color"],
     size?: React.CSSProperties["fontSize"]
     weight?: React.CSSProperties["fontWeight"]
     bold?: boolean,
-    font?: React.CSSProperties["fontFamily"]
+    font?: React.CSSProperties["fontFamily"],
+    className?: string
 }
 
 export let TextStyle: React.FC<TextStyleProps> = ({
-    color = colors.foreground,
-    size = textSizes.normal,
-    weight = "normal",
+    color = null,
+    size = null,
+    weight = null,
     bold = false,
-    font = fonts.normal,
-    children
+    font = null,
+    children,
+    className = ""
 }) => {
     if (bold) {
-        weight = "bold"
+        className += " " + styles.bold
     }
 
+    var styleBuilder = new StyleBuilder()
+        .addStyle("color", color)
+        .addStyle("fontSize", size)
+        .addStyle("fontWeight", weight)
+        .addStyle("fontFamily", font)
+
     return (
-        <span style={{
-            color: color,
-            fontWeight: weight,
-            fontSize: size,
-            fontFamily: font
-        }}>{children}</span>
+        <span style={styleBuilder.build()} className={styles.textStyle + " " + className}>{children}</span>
     )
 }
