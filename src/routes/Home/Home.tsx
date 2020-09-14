@@ -13,14 +13,14 @@ export let Home: React.FC<{}> = () => {
         <ScrollArea fill>
             <Page>
                 <Frame fill center className={themes.dark}>
-                    <Frame className={themes.white}>
+                    <Frame className={themes.white} p="a5t0">
                         <Image width="500px" src={logo}></Image>
                         <Text center>
                             <TextSize.header>
                                 React Components Library
                             </TextSize.header>
                         </Text>
-                        <Text center>Collection of my custom made React components</Text>
+                        <Text center m="t3">Collection of my custom made React components</Text>
                     </Frame>
                 </Frame>
             </Page>
