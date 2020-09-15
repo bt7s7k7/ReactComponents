@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Home } from './routes/Home/Home';
+import { Library } from './routes/Library/Library';
 import "./sharedComponents/body.scss";
 import "./sharedComponents/global.scss";
 import styles from "./sharedComponents/index.module.scss";
@@ -16,6 +17,7 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact component={Home} />
+                <Route path="/library" exact component={Library} />
                 <Route path="/" component={PageNotFound} />
             </Switch>
         </BrowserRouter>

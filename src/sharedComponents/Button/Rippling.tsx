@@ -65,7 +65,7 @@ export let Rippling: React.FC<RipplingProps> = ({ baseColor = colors.link, rippl
         animRipples.current.forEach((ripple, i) => {
             if (ripple.start != null) {
                 let frac = ((Date.now() - ripple.start) / 1000) / ripple.prototype.duration
-                let offset = (ripple.prototype.minRadius ?? 10) + frac * (ripple.prototype.radius ?? 200)
+                let offset = (ripple.prototype.minRadius ?? 10) + frac * (ripple.prototype.radius ?? 100)
                 let otherColor = [0, 0, 0]
                 if (ripple.prototype.lerpTo != null) {
                     otherColor = computedBaseColor.current.map((base, i) => {
@@ -94,7 +94,7 @@ export let Rippling: React.FC<RipplingProps> = ({ baseColor = colors.link, rippl
 
         output.push({ color: hexBaseColor, offset: output[output.length - 1].offset })
 
-        element.current!.style.background = `radial-gradient(circle at ${animStart.current[0]}px ${animStart.current[1]}px, ${output.map(v => `${v.color} ${v.offset}px`).join(", ")})`
+        element.current!.style.background = `radial-gradient(circle at ${animStart.current[0]}px ${animStart.current[1]}px, ${output.map(v => `${v.color} ${v.offset}%`).join(", ")})`
 
         animFrame.current = requestAnimationFrame(animate)
     }, [])

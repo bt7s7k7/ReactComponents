@@ -1,3 +1,4 @@
+import styles from "./index.module.scss"
 export const colors = {
     hover: "var(--hover-color)",
     active: "var(--active-color)",
@@ -6,7 +7,8 @@ export const colors = {
     link: "var(--link-color)",
     background: "var(--background-color)",
     foreground: "var(--foreground-color)",
-    button: "var(--button-color)"
+    button: "var(--button-color)",
+    code: "var(--code-color)"
 } as const
 
 export const textSizes = {
@@ -19,4 +21,9 @@ export const fonts = {
     normal: "var(--normal-font)",
     monospace: "var(--monospace-font)",
     serif: "var(--serif-font)",
+} as const
+
+export const classes = {
+    shadow: styles.shadow,
+    round: styles.round
 } as const

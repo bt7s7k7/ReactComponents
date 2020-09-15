@@ -1,3 +1,4 @@
+
 export class StyleBuilder {
     protected style = {} as React.CSSProperties
     protected overrideStyle = {} as React.CSSProperties
@@ -9,6 +10,12 @@ export class StyleBuilder {
             this.style[key] = value
         }
 
+        return this
+    }
+
+    addStyles(styles: Partial<React.CSSProperties> | null) {
+        if (styles != null)
+            Object.entries(styles).forEach(([key, value]) => value != null && this.addStyle(key as keyof React.CSSProperties, value))
         return this
     }
 

@@ -6,12 +6,13 @@
 @mixin defaultColors {
     --hover-color: #e0ffff;
     --active-color: #9cff9c;
-    --confirm-color: #02ef2a;
-    --delete-color: #ff2c14;
+    --confirm-color: #4CAF50;
+    --delete-color: #e9250f;
     --link-color: #005dff;
     --background-color: #ffffff;
     --foreground-color: #000000;
     --button-color: #ffffff;
+    --code-color: #dddddd;
 }
 
 @mixin defaultSizes {

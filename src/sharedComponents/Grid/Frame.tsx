@@ -1,4 +1,5 @@
 import React, { forwardRef } from "react"
+import { colors } from "../constants"
 import { BaseProps, StyleableProps, StyleBuilder } from "../StyleBuilder"
 import styles from "./Frame.module.scss"
 
@@ -11,9 +12,10 @@ export interface FrameProps extends StyleableProps {
     alignMain?: React.CSSProperties["justifyContent"]
     direction?: React.CSSProperties["flexDirection"],
     center?: boolean,
-    background?: React.CSSProperties["background"],
+    background?: React.CSSProperties["background"] | boolean,
     p?: string
-    m?: string
+    m?: string,
+    b?: string
 }
 
 export function parseDirectionalProp(prop: string | null, value = "var(--gap-size)") {
@@ -47,10 +49,54 @@ export function parseDirectionalProp(prop: string | null, value = "var(--gap-siz
         }
 
         if (top !== 0 || right !== 0 || bottom !== 0 || left !== 0) {
-            return `calc(${top} * ${value}) ` +
-                `calc(${right} * ${value}) ` +
-                `calc(${bottom} * ${value}) ` +
-                `calc(${left} * ${value}) `
+            if (top === right && right === bottom && bottom === left) {
+                return `calc(${top} * ${value}) `
+            } else {
+                return `calc(${top} * ${value}) ` +
+                    `calc(${right} * ${value}) ` +
+                    `calc(${bottom} * ${value}) ` +
+                    `calc(${left} * ${value}) `
+            }
+        } else return null
+    } else return null
+}
+
+export function parseBorder(prop: string | null, borderValue = "var(--border)") {
+    if (prop != null) {
+        let top = false
+        let right = false
+        let bottom = false
+        let left = false
+
+        let valNext = true
+
+        let directions = {
+            t: () => top = valNext,
+            r: () => right = valNext,
+            b: () => bottom = valNext,
+            l: () => left = valNext,
+            x: () => left = right = valNext,
+            y: () => top = bottom = valNext,
+            a: () => top = bottom = right = left = valNext
+        } as Record<string, () => void>
+
+        [...prop].forEach((ch, i) => {
+            if (ch === "!") {
+                valNext = false
+            } else if (ch in directions) {
+                directions[ch]()
+                valNext = true
+            } else {
+                throw new Error(`Unknown axis "${ch}" at ${i}`)
+            }
+        })
+        if (top || right || bottom || left) {
+            return {
+                borderTop: top ? borderValue : "none",
+                borderRight: right ? borderValue : "none",
+                borderBottom: bottom ? borderValue : "none",
+                borderLeft: left ? borderValue : "none",
+            }
         } else return null
     } else return null
 }
@@ -64,10 +110,11 @@ export let Frame = forwardRef<HTMLDivElement, FrameProps & BaseProps>(function F
     alignCross = null,
     alignMain = null,
     direction = null,
-    background: color = null,
+    background = null,
     center = false,
     p: padding = null,
     m: margin = null,
+    b: border = null,
     ...props
 }, ref) {
     var styleBuilder = new StyleBuilder(props)
@@ -76,9 +123,10 @@ export let Frame = forwardRef<HTMLDivElement, FrameProps & BaseProps>(function F
         .addStyle("flexGrow", grow)
         .addStyle("justifyContent", alignMain)
         .addStyle("alignItems", alignCross)
-        .addStyle("background", color)
+        .addStyle("background", typeof background === "boolean" ? (background ? colors.background : null) : (background))
         .addStyle("padding", parseDirectionalProp(padding))
         .addStyle("margin", parseDirectionalProp(margin))
+        .addStyles(parseBorder(border))
 
     styleBuilder.addClass(styles.frame)
 
@@ -90,7 +138,7 @@ export let Frame = forwardRef<HTMLDivElement, FrameProps & BaseProps>(function F
         styleBuilder.addClass(styles.center)
     }
 
-    if (color != null) console.log(color)
+    if (background != null) console.log(background)
 
     return <div {...styleBuilder.build(props)} ref={ref}>{children}</div>
 })

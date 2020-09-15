@@ -8,8 +8,15 @@
     @include common.defaultFontSize;
 
     @include common.defaultFonts;  
+
+    --border: 1px solid lightgray
 }
 
 a {
     text-decoration: none;
+}
+
+pre {
+    margin: 0;
+    font-family: var(--monospace-font);
 }
