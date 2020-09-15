@@ -1,8 +1,8 @@
 import React from "react"
-import { StyleBuilder } from "../StyleBuilder"
+import { StyleableProps, StyleBuilder } from "../StyleBuilder"
 import styles from "./Frame.module.scss"
 
-export interface FrameProps {
+export interface FrameProps extends StyleableProps {
     basis?: React.CSSProperties["flexBasis"]
     grow?: React.CSSProperties["flexGrow"]
     shrink?: React.CSSProperties["flexShrink"]
@@ -11,7 +11,6 @@ export interface FrameProps {
     alignMain?: React.CSSProperties["justifyContent"]
     direction?: React.CSSProperties["flexDirection"],
     center?: boolean,
-    className?: string,
     color?: React.CSSProperties["backgroundColor"],
     p?: string
     m?: string
@@ -67,21 +66,11 @@ export let Frame: React.FC<FrameProps> = ({
     direction = null,
     color = null,
     center = false,
-    className = "",
     p: padding = null,
-    m: margin = null
+    m: margin = null,
+    ...props
 }) => {
-    if (fill) {
-        className += " " + styles.fill
-    }
-
-    if (center) {
-        className += " " + styles.center
-    }
-
-
-
-    var styleBuilder = new StyleBuilder()
+    var styleBuilder = new StyleBuilder(props)
         .addStyle("flexDirection", direction)
         .addStyle("flexBasis", basis)
         .addStyle("flexGrow", grow)
@@ -91,6 +80,17 @@ export let Frame: React.FC<FrameProps> = ({
         .addStyle("padding", parseDirectionalProp(padding))
         .addStyle("margin", parseDirectionalProp(margin))
 
-    return <div style={styleBuilder.build()} className={styles.frame + " " + className}>{children}</div>
+    styleBuilder.addClass(styles.frame)
+
+    if (fill) {
+        styleBuilder.addClass(styles.fill)
+    }
+
+    if (center) {
+        styleBuilder.addClass(styles.center)
+    }
+
+
+    return <div {...props} {...styleBuilder.build()}>{children}</div>
 }
 

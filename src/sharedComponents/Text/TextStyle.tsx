@@ -1,14 +1,13 @@
 import React from "react"
-import { StyleBuilder } from "../StyleBuilder"
+import { StyleableProps, StyleBuilder } from "../StyleBuilder"
 import styles from "./TextStyle.module.scss"
 
-export interface TextStyleProps {
+export interface TextStyleProps extends StyleableProps {
     color?: React.CSSProperties["color"],
     size?: React.CSSProperties["fontSize"]
     weight?: React.CSSProperties["fontWeight"]
     bold?: boolean,
     font?: React.CSSProperties["fontFamily"],
-    className?: string
 }
 
 export let TextStyle: React.FC<TextStyleProps> = ({
@@ -18,19 +17,22 @@ export let TextStyle: React.FC<TextStyleProps> = ({
     bold = false,
     font = null,
     children,
-    className = ""
+    ...props
 }) => {
-    if (bold) {
-        className += " " + styles.bold
-    }
 
-    var styleBuilder = new StyleBuilder()
+    var styleBuilder = new StyleBuilder(props)
         .addStyle("color", color)
         .addStyle("fontSize", size)
         .addStyle("fontWeight", weight)
         .addStyle("fontFamily", font)
 
+    styleBuilder.addClass(styles.textStyle)
+
+    if (bold) {
+        styleBuilder.addClass(styles.bold)
+    }
+
     return (
-        <span style={styleBuilder.build()} className={styles.textStyle + " " + className}>{children}</span>
+        <span {...props} {...styleBuilder.build()}>{children}</span>
     )
 }
