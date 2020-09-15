@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import { Button } from "../../sharedComponents/Button/Button"
 import { Frame } from "../../sharedComponents/Grid/Frame"
 import { Row } from "../../sharedComponents/Grid/frameDeriv"
@@ -13,13 +14,15 @@ export let Home: React.FC<{}> = () => {
             <Frame p="a5t0">
                 <Image width="500px" src={logo}></Image>
                 <Text center>
-                    <TextSize.header>
+                    <TextSize.heading>
                         React Components Library
-                            </TextSize.header>
+                            </TextSize.heading>
                 </Text>
                 <Text center m="t3">Collection of my custom made React components</Text>
                 <Row center m="t3">
-                    <Button>Go to library</Button>
+                    <Link to="/library">
+                        <Button>Go to library</Button>
+                    </Link>
                 </Row>
             </Frame>
         </Frame>

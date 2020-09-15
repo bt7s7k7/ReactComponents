@@ -20,7 +20,8 @@
 
 @mixin defaultFontSize {
     --normal-text-size: 14px;
-    --header-text-size: 42px;
+    --heading-text-size: 42px;
+    --header-text-size: 70px;
 }
 
 @mixin defaultFonts {

@@ -11,6 +11,7 @@ export const colors = {
 
 export const textSizes = {
     normal: "var(--normal-text-size)",
+    heading: "var(--heading-text-size)",
     header: "var(--header-text-size)",
 } as const
 
