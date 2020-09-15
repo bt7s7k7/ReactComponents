@@ -1,6 +1,7 @@
-import React from "react";
-import { Frame } from "./Frame";
+import React, { forwardRef } from "react";
+import { BaseProps } from "../StyleBuilder";
+import { Frame, FrameProps } from "./Frame";
 
 
-export let Col: typeof Frame = (props) => <Frame {...{ ...props, direction: "column" }} />;
-export let Row: typeof Frame = (props) => <Frame {...{ ...props, direction: "row" }} />;
+export let Col = forwardRef<HTMLDivElement, FrameProps & BaseProps>(function Col(props, ref) { return <Frame {...{ ...props, direction: "column" }} ref={ref} /> })
+export let Row = forwardRef<HTMLDivElement, FrameProps & BaseProps>(function Row(props, ref) { return <Frame {...{ ...props, direction: "row" }} ref={ref} /> })

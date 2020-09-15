@@ -1,4 +1,4 @@
-import React from "react"
+import React, { forwardRef } from "react"
 import { BaseProps, StyleableProps, StyleBuilder } from "../StyleBuilder"
 import styles from "./Frame.module.scss"
 
@@ -11,12 +11,12 @@ export interface FrameProps extends StyleableProps {
     alignMain?: React.CSSProperties["justifyContent"]
     direction?: React.CSSProperties["flexDirection"],
     center?: boolean,
-    color?: React.CSSProperties["backgroundColor"],
+    background?: React.CSSProperties["background"],
     p?: string
     m?: string
 }
 
-export function parseDirectionalProp(prop: string | null) {
+export function parseDirectionalProp(prop: string | null, value = "var(--gap-size)") {
     if (prop != null) {
         let top = 0
         let right = 0
@@ -47,15 +47,15 @@ export function parseDirectionalProp(prop: string | null) {
         }
 
         if (top !== 0 || right !== 0 || bottom !== 0 || left !== 0) {
-            return `calc(${top} * var(--gap-size)) ` +
-                `calc(${right} * var(--gap-size)) ` +
-                `calc(${bottom} * var(--gap-size)) ` +
-                `calc(${left} * var(--gap-size)) `
+            return `calc(${top} * ${value}) ` +
+                `calc(${right} * ${value}) ` +
+                `calc(${bottom} * ${value}) ` +
+                `calc(${left} * ${value}) `
         } else return null
     } else return null
 }
 
-export let Frame: React.FC<FrameProps & BaseProps> = ({
+export let Frame = forwardRef<HTMLDivElement, FrameProps & BaseProps>(function Frame({
     children,
     basis = null,
     grow = null,
@@ -64,19 +64,19 @@ export let Frame: React.FC<FrameProps & BaseProps> = ({
     alignCross = null,
     alignMain = null,
     direction = null,
-    color = null,
+    background: color = null,
     center = false,
     p: padding = null,
     m: margin = null,
     ...props
-}) => {
+}, ref) {
     var styleBuilder = new StyleBuilder(props)
         .addStyle("flexDirection", direction)
         .addStyle("flexBasis", basis)
         .addStyle("flexGrow", grow)
         .addStyle("justifyContent", alignMain)
         .addStyle("alignItems", alignCross)
-        .addStyle("backgroundColor", color)
+        .addStyle("background", color)
         .addStyle("padding", parseDirectionalProp(padding))
         .addStyle("margin", parseDirectionalProp(margin))
 
@@ -90,7 +90,8 @@ export let Frame: React.FC<FrameProps & BaseProps> = ({
         styleBuilder.addClass(styles.center)
     }
 
+    if (color != null) console.log(color)
 
-    return <div {...styleBuilder.build(props)}>{children}</div>
-}
+    return <div {...styleBuilder.build(props)} ref={ref}>{children}</div>
+})
 

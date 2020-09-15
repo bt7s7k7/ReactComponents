@@ -8,6 +8,7 @@ export interface TextStyleProps extends StyleableProps, BaseProps {
     weight?: React.CSSProperties["fontWeight"]
     bold?: boolean,
     font?: React.CSSProperties["fontFamily"],
+    noSelect?: boolean
 }
 
 export let TextStyle: React.FC<TextStyleProps> = ({
@@ -17,6 +18,7 @@ export let TextStyle: React.FC<TextStyleProps> = ({
     bold = false,
     font = null,
     children,
+    noSelect = false,
     ...props
 }) => {
 
@@ -30,6 +32,10 @@ export let TextStyle: React.FC<TextStyleProps> = ({
 
     if (bold) {
         styleBuilder.addClass(styles.bold)
+    }
+
+    if (noSelect) {
+        styleBuilder.addClass(styles.noSelect)
     }
 
     return (

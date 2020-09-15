@@ -5,7 +5,8 @@ export const colors = {
     delete: "var(--delete-color)",
     link: "var(--link-color)",
     background: "var(--background-color)",
-    foreground: "var(--foreground-color)"
+    foreground: "var(--foreground-color)",
+    button: "var(--button-color)"
 } as const
 
 export const textSizes = {

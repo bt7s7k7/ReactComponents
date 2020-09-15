@@ -38,6 +38,6 @@ export interface StyleableProps {
     style?: React.CSSProperties
 }
 
-export interface BaseProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "className"> {
+export interface BaseProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "className" | "color"> {
     noPropagation?: boolean
 }
