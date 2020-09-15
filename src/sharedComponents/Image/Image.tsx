@@ -1,5 +1,7 @@
 import React from "react"
 import { Frame, FrameProps } from "../Grid/Frame"
+import { StyleBuilder } from "../StyleBuilder"
+import styles from "./Image.module.scss"
 
 const GREY_DATA_URI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+QJDhEDEIewbJYAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAADElEQVQI12MoLy8HAALOAWbheX3bAAAAAElFTkSuQmCC"
 
@@ -7,22 +9,28 @@ export interface ImageProps extends FrameProps {
     src?: string
     height?: React.CSSProperties["height"]
     width?: React.CSSProperties["width"]
-    alt?: string
+    alt?: string,
+    cover?: boolean
 }
 
-export let Image: React.FC<ImageProps> = ({
+export let Img: React.FC<ImageProps> = ({
     src = GREY_DATA_URI,
-    height = "auto",
-    width = "auto",
+    height = null,
+    width = null,
     alt = "placeholder",
+    cover = false,
     ...props
 }) => {
+    let builder = new StyleBuilder({})
+        .addStyle("width", width)
+        .addStyle("height", height)
+        .addClass(styles.image)
+
+    if (cover) builder.addClass(styles.cover)
+
     return (
         <Frame {...props}>
-            <img src={src} alt={alt} style={{
-                height,
-                width
-            }}></img>
+            <img src={src} alt={alt} {...builder.build()}></img>
         </Frame>
     )
 }

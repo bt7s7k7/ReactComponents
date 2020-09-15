@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { Button } from "../../sharedComponents/Button/Button"
 import { Frame } from "../../sharedComponents/Grid/Frame"
 import { Row } from "../../sharedComponents/Grid/frameDeriv"
-import { Image } from "../../sharedComponents/Image/Image"
+import { Img } from "../../sharedComponents/Image/Image"
 import { TextFrame } from "../../sharedComponents/Text/TextFrame"
 import { TextSize } from "../../sharedComponents/Text/textStyleDeriv"
 import logo from "./logo.png"
@@ -12,7 +12,7 @@ export let Home: React.FC<{}> = () => {
     return (
         <Frame fill center>
             <Frame p="a5t0">
-                <Image width="500px" src={logo}></Image>
+                <Img width="500px" src={logo}></Img>
                 <TextFrame center>
                     <TextSize.heading>
                         React Components Library

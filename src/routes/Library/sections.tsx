@@ -1,8 +1,10 @@
 import React from "react"
 import { Button } from "../../sharedComponents/Button/Button"
 import { Col, Row } from "../../sharedComponents/Grid/frameDeriv"
+import { Img } from "../../sharedComponents/Image/Image"
 import { Code } from "../../sharedComponents/Text/Code"
 import { TextFrame } from "../../sharedComponents/Text/TextFrame"
+import image from "./image.jpg"
 
 export interface Section {
     label: string,
@@ -40,5 +42,18 @@ export const sections = [
     {
         label: "Code",
         render: <Code><pre>{"<Code>\n    Insert code here\n</Code>"}</pre></Code>
+    },
+    {
+        label: "Image",
+        render: <Row>
+            <Col fill>
+                <TextFrame center>Contain</TextFrame>
+                <Img center height="600px" src={image} alt="Image shrunk to fit" width="calc(100vw / 5)" m="t3" />
+            </Col>
+            <Col fill>
+                <TextFrame center>Cover</TextFrame>
+                <Img center height="600px" src={image} alt="Image stretched and clipped to cover" width="calc(100vw / 5)" cover m="t3" />
+            </Col>
+        </Row>
     }
 ] as Section[]
