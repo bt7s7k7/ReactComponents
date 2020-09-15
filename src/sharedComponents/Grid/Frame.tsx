@@ -1,5 +1,5 @@
 import React from "react"
-import { StyleableProps, StyleBuilder } from "../StyleBuilder"
+import { BaseProps, StyleableProps, StyleBuilder } from "../StyleBuilder"
 import styles from "./Frame.module.scss"
 
 export interface FrameProps extends StyleableProps {
@@ -55,7 +55,7 @@ export function parseDirectionalProp(prop: string | null) {
     } else return null
 }
 
-export let Frame: React.FC<FrameProps> = ({
+export let Frame: React.FC<FrameProps & BaseProps> = ({
     children,
     basis = null,
     grow = null,
@@ -91,6 +91,6 @@ export let Frame: React.FC<FrameProps> = ({
     }
 
 
-    return <div {...props} {...styleBuilder.build()}>{children}</div>
+    return <div {...styleBuilder.build(props)}>{children}</div>
 }
 

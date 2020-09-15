@@ -18,8 +18,9 @@ export class StyleBuilder {
         return this
     }
 
-    build() {
-        return { style: { ...this.style, ...this.overrideStyle }, className: [...this.classes, ...this.overrideClasses].join(" ") }
+    build(props: BaseProps = {}) {
+        let { noPropagation = false } = props
+        return { ...(noPropagation ? {} : props), style: { ...this.style, ...this.overrideStyle }, className: [...this.classes, ...this.overrideClasses].join(" ") }
     }
 
     constructor({ style = {}, className = "" }: StyleableProps) {
@@ -35,4 +36,8 @@ export class StyleBuilder {
 export interface StyleableProps {
     className?: string | (string | null)[]
     style?: React.CSSProperties
+}
+
+export interface BaseProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "className"> {
+    noPropagation?: boolean
 }

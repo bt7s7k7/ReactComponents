@@ -1,8 +1,8 @@
 import React from "react"
-import { StyleableProps, StyleBuilder } from "../StyleBuilder"
+import { BaseProps, StyleableProps, StyleBuilder } from "../StyleBuilder"
 import styles from "./TextStyle.module.scss"
 
-export interface TextStyleProps extends StyleableProps {
+export interface TextStyleProps extends StyleableProps, BaseProps {
     color?: React.CSSProperties["color"],
     size?: React.CSSProperties["fontSize"]
     weight?: React.CSSProperties["fontWeight"]
@@ -33,6 +33,6 @@ export let TextStyle: React.FC<TextStyleProps> = ({
     }
 
     return (
-        <span {...props} {...styleBuilder.build()}>{children}</span>
+        <span {...styleBuilder.build(props)}>{children}</span>
     )
 }
