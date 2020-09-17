@@ -3,6 +3,7 @@ import { classes, colors } from "../constants"
 import { FrameProps } from "../Grid/Frame"
 import { StyleBuilder } from "../StyleBuilder"
 import { TextStyle } from "../Text/TextStyle"
+import styles from "./Button.module.scss"
 import { Rippling, RipplingProps } from "./Rippling"
 
 export interface ButtonProps extends RipplingProps {
@@ -19,6 +20,7 @@ export let Button: React.FC<ButtonProps> = ({ children, confirm, deny, round = f
     if (deny) background = colors.delete
 
     let styleBuilder = new StyleBuilder(props)
+        .addClass(styles.button)
 
     if (round) styleBuilder.addClass(classes.round)
 
