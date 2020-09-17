@@ -1,5 +1,6 @@
 import React from "react"
 import { Button } from "../../sharedComponents/Button/Button"
+import { Rippling } from "../../sharedComponents/Button/Rippling"
 import { Col, Row } from "../../sharedComponents/Grid/frameDeriv"
 import { Img } from "../../sharedComponents/Image/Image"
 import { Code } from "../../sharedComponents/Text/Code"
@@ -12,6 +13,36 @@ export interface Section {
 }
 
 export const sections = [
+    {
+        label: "Rippling",
+        render: <>
+            <Row basis="300px">
+                <Col fill m="r3">
+                    <TextFrame center m="b1">Brighten</TextFrame>
+                    <Rippling baseColor="#000000" fill ripples={[{
+                        trigger: "down",
+                        duration: 0.25
+                    }]} />
+                </Col>
+                <Col fill>
+                    <TextFrame center m="b1">Lerp To</TextFrame>
+                    <Rippling baseColor="#000000" fill ripples={[{
+                        trigger: "down",
+                        duration: 0.25,
+                        lerpTo: [0, 255, 0]
+                    }]} />
+                </Col>
+            </Row>
+            <TextFrame center m="y1">Keep Alive</TextFrame>
+            {[...Array(10)].map((_, i) =>
+                <Rippling baseColor="#000000" key={i} basis="20px" ripples={[{
+                    trigger: "enter",
+                    duration: 0.1,
+                    keepAlive: true
+                }]} />
+            )}
+        </>
+    },
     {
         label: "Buttons",
         render: <>

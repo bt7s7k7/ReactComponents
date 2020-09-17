@@ -5,12 +5,14 @@ import { BaseProps } from "../StyleBuilder"
 
 export interface RipplePrototype {
     duration: number
-    offset?: number
     lerpTo?: [number, number, number]
     trigger: "down" | "enter"
     keepAlive?: boolean
+    /** @default 100 */
     radius?: number
+    /** @default 10 */
     minRadius?: number
+    /** @default 50 */
     brighten?: number
 }
 
@@ -43,11 +45,7 @@ export let Rippling: React.FC<RipplingProps> = ({ baseColor = colors.link, rippl
         }
     }, [baseColor])
 
-    let animRipples = useRef<{ prototype: RipplePrototype, start: number | null }[]>([])
-
-    useEffect(() => {
-        animRipples.current = ripples.map(v => ({ prototype: v, start: null }))
-    }, [ripples])
+    let animRipples = useRef<{ prototype: RipplePrototype, start: number | null, keepAliveOverride: number | null }[]>([])
 
     let animStart = useRef([0, 0])
 
@@ -58,23 +56,23 @@ export let Rippling: React.FC<RipplingProps> = ({ baseColor = colors.link, rippl
 
         let hexBaseColor = toHex(computedBaseColor.current)
 
-        let output = [] as { color: string, offset: number }[]
+        let output = [] as { color: number[], hexColor: string, offset: number }[]
 
-        output.push({ color: hexBaseColor, offset: 0 })
+        output.push({ hexColor: hexBaseColor, offset: 0, color: computedBaseColor.current })
 
-        animRipples.current.forEach((ripple, i) => {
+        animRipples.current = animRipples.current.filter((ripple, i) => {
             if (ripple.start != null) {
+                let baseColor = computedBaseColor.current
                 let frac = ((Date.now() - ripple.start) / 1000) / ripple.prototype.duration
-                let offset = (ripple.prototype.minRadius ?? 10) + frac * (ripple.prototype.radius ?? 100)
                 let otherColor = [0, 0, 0]
+                let colorFrac = ripple.prototype.keepAlive ? (ripple.keepAliveOverride != null ? ((Date.now() - ripple.keepAliveOverride) / 1000) / ripple.prototype.duration : 0) : frac
                 if (ripple.prototype.lerpTo != null) {
-                    otherColor = computedBaseColor.current.map((base, i) => {
-                        let offset = (ripple.prototype.lerpTo![i] - base) * (frac)
-                        return base + offset
+                    otherColor = baseColor.map((base, i) => {
+                        return Math.floor(base * (colorFrac) + ripple.prototype.lerpTo![i] * (1 - colorFrac))
                     })
                 } else {
-                    let add = (ripple.prototype.brighten ?? 50) * (1 - frac)
-                    otherColor = computedBaseColor.current.map(v => v + Math.floor(add))
+                    let add = (ripple.prototype.brighten ?? 50) * (1 - colorFrac)
+                    otherColor = baseColor.map(v => v + Math.floor(add))
                 }
 
                 let hexColor = toHex(otherColor)
@@ -87,14 +85,21 @@ export let Rippling: React.FC<RipplingProps> = ({ baseColor = colors.link, rippl
                     }
                 }
 
-                output.push({ color: hexColor, offset: output[output.length - 1].offset })
-                output.push({ color: hexColor, offset: offset })
+                if (colorFrac > 1) {
+                    ripple.start = null
+                }
+                let offset = (ripple.prototype.minRadius ?? 10) + frac * (ripple.prototype.radius ?? 100)
+
+                output.push({ color: otherColor, hexColor: hexColor, offset: output[output.length - 1].offset })
+                output.push({ color: otherColor, hexColor: hexColor, offset: offset })
             }
+
+            return ripple.start != null
         })
 
-        output.push({ color: hexBaseColor, offset: output[output.length - 1].offset })
+        output.push({ hexColor: hexBaseColor, offset: output[output.length - 1].offset, color: computedBaseColor.current })
 
-        element.current!.style.background = `radial-gradient(circle at ${animStart.current[0]}px ${animStart.current[1]}px, ${output.map(v => `${v.color} ${v.offset}%`).join(", ")})`
+        element.current!.style.background = `radial-gradient(circle at ${animStart.current[0]}px ${animStart.current[1]}px, ${output.map(v => `${v.hexColor} ${v.offset}%`).join(", ")})`
 
         animFrame.current = requestAnimationFrame(animate)
     }, [])
@@ -105,7 +110,11 @@ export let Rippling: React.FC<RipplingProps> = ({ baseColor = colors.link, rippl
     }, [animate])
 
     let triggerHandler = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, trigger: RipplePrototype["trigger"]) => {
-        animRipples.current.forEach(v => v.prototype.trigger === trigger && (v.start = Date.now()))
+        ripples.forEach(ripple => {
+            if (ripple.trigger === trigger) {
+                animRipples.current.unshift({ prototype: ripple, start: Date.now(), keepAliveOverride: null })
+            }
+        })
 
         let rect = element.current!.getBoundingClientRect()
 
@@ -117,8 +126,13 @@ export let Rippling: React.FC<RipplingProps> = ({ baseColor = colors.link, rippl
             if (props.onMouseEnter != null) props.onMouseEnter(event)
             triggerHandler(event, "enter")
         }} onMouseDown={event => {
+            event.preventDefault()
             if (props.onMouseDown != null) props.onMouseDown(event)
             triggerHandler(event, "down")
+        }} onMouseLeave={(event) => {
+            if (props.onMouseLeave) props.onMouseLeave(event)
+
+            animRipples.current.forEach(v => v.prototype.trigger === "enter" && v.prototype.keepAlive && v.keepAliveOverride == null && (v.keepAliveOverride = Date.now()))
         }} />
     )
 }
