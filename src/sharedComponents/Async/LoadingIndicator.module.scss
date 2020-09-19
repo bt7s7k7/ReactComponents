@@ -29,10 +29,9 @@
 
 .container {
     position: relative;
-    width: calc(var(--anim-radius) * 2);
-    height: calc(var(--anim-radius) * 2);
-    transform: translate(var(--anim-radius), var(--anim-radius));
-    transition: transform 0.2s;
+    width: calc(var(--anim-radius) * 2 + var(--anim-dot));
+    height: calc(var(--anim-radius) * 2 + var(--anim-dot));
+    transform: translate(calc(var(--anim-radius) + var(--anim-dot) / 2), calc(var(--anim-radius) + var(--anim-dot) / 2));
 
     .dot {
         * {

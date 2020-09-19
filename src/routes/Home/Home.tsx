@@ -20,9 +20,14 @@ export let Home: React.FC<{}> = () => {
                 </TextFrame>
                 <TextFrame center m="t3">Collection of my custom made React components</TextFrame>
                 <Row center m="t3">
-                    <Link to="/library">
-                        <Button>Go to library</Button>
-                    </Link>
+                    <Row>
+                        <Link to="/library">
+                            <Button m="r1">Go to library</Button>
+                        </Link>
+                        <Link to="/async">
+                            <Button>Go to async showcase</Button>
+                        </Link>
+                    </Row>
                 </Row>
             </Frame>
         </Frame>

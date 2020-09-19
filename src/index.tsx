@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+import { Async } from './routes/Async/Async';
 import { Home } from './routes/Home/Home';
 import logo from "./routes/Home/logo.png";
 import { Library } from './routes/Library/Library';
@@ -27,6 +28,7 @@ ReactDOM.render(
             <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/library" exact component={Library} />
+                <Route path="/async" exact component={Async} />
                 <Route path="/" component={PageNotFound} />
             </Switch>
         </BrowserRouter>
