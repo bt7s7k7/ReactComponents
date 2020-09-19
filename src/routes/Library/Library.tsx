@@ -19,10 +19,10 @@ export let Library: React.FC<LibraryProps> = (props) => {
                     <TextFrame size={textSizes.heading}>{section.label}</TextFrame>
                     <Row fill b="a" className={[classes.round]}>
                         <Col fill p="a3">
-                            {section.render}
+                            {section.render()}
                         </Col>
                         <Col fill p="a3" className={themes.dark} background>
-                            {section.render}
+                            {section.render()}
                         </Col>
                     </Row>
                 </Frame>

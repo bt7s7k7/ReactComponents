@@ -1,0 +1,102 @@
+@keyframes slidesA {
+    from {
+        transform: translate(0, calc(var(--anim-radius) * -1))
+    }
+
+    to {
+        transform: translate(0, var(--anim-radius))
+    }
+}
+
+@keyframes slidesB {
+    from {
+        transform: rotate(calc(360deg / 3)) translate(0, calc(var(--anim-radius) * -1)) 
+    }
+
+    to {
+        transform: rotate(calc(360deg / 3)) translate(0, var(--anim-radius))
+    }
+}
+@keyframes slidesC {
+    from {
+        transform: rotate(calc(360deg / 3 * 2)) translate(0, calc(var(--anim-radius) * -1))
+    }
+
+    to {
+        transform: rotate(calc(360deg / 3 * 2)) translate(0, var(--anim-radius))
+    }
+}
+
+.container {
+    position: relative;
+    width: calc(var(--anim-radius) * 2);
+    height: calc(var(--anim-radius) * 2);
+    transform: translate(var(--anim-radius), var(--anim-radius));
+    transition: transform 0.2s;
+
+    .dot {
+        * {
+            position: absolute;
+            top: calc(var(--anim-dot) * -0.5);
+            left: calc(var(--anim-dot) * -0.5);
+            width: var(--anim-dot);
+            height: var(--anim-dot);
+
+            border-radius: 50%;
+            background-color: var(--anim-background);
+
+            animation-duration: var(--anim-duration);
+            animation-timing-function: cubic-bezier(0.8, 0, 0.2, 1);
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            animation-fill-mode: both;
+        }
+    }
+
+    .alpha {
+        * {
+            animation-name: slidesA;
+            transform: translate(0, calc(var(--anim-radius) * -1))
+        }
+    }
+
+    .beta {
+        * {
+            animation-name: slidesB;
+            animation-delay: calc(var(--anim-duration) / 3);
+            transform: rotate(calc(360deg / 3)) translate(0, calc(var(--anim-radius) * -1)) 
+        }
+    }
+    
+    .gamma {
+        * {
+            animation-name: slidesC;
+            animation-delay: calc(var(--anim-duration) / 3 * 2);
+            transform: rotate(calc(360deg / 3 * 2)) translate(0, calc(var(--anim-radius) * -1))
+        }
+    }
+
+    .exclamation {
+        position: absolute;
+        top:  calc(var(--anim-radius) * -0.6);
+        left: calc(var(--anim-radius) * -0.29);
+        transform: scale(0);
+        transition: transform 0.2s;
+        color: var(--anim-error);
+        font-family: var(--monospace-font);
+        font-size: var(--anim-radius)
+    }
+}
+
+.container.error {
+    .dot {
+        * {
+            background-color: var(--anim-error);
+        }
+    }
+    
+    .exclamation {
+        transform: scale(1);
+        transition-delay: 0.3s;
+    }
+}

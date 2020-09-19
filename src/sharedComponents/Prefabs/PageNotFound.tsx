@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { LoadingIndicator } from "../Async/LoadingIndicator"
 import { Button } from "../Button/Button"
 import { colors, fonts } from "../constants"
 import { Frame } from "../Grid/Frame"
@@ -14,7 +15,10 @@ export let PageNotFound: React.FC<PageNotFoundProps> = (props) => {
     return (
         <Frame center fill>
             <Frame>
-                <TextFrame size="100px" color={colors.delete} font={fonts.monospace} center>404</TextFrame>
+                <Frame center>
+                    <LoadingIndicator error />
+                </Frame>
+                <TextFrame size="100px" color={colors.delete} font={fonts.monospace}>404</TextFrame>
                 <TextFrame size="25px" center>Page not found</TextFrame>
                 <Row center m="t5">
                     <Link to="/">
@@ -22,6 +26,6 @@ export let PageNotFound: React.FC<PageNotFoundProps> = (props) => {
                     </Link>
                 </Row>
             </Frame>
-        </Frame>
+        </Frame >
     )
 }
