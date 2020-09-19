@@ -10,7 +10,8 @@ export interface ImageProps extends FrameProps {
     height?: React.CSSProperties["height"]
     width?: React.CSSProperties["width"]
     alt?: string,
-    cover?: boolean
+    cover?: boolean,
+    fit?: React.CSSProperties["objectFit"]
 }
 
 export let Img: React.FC<ImageProps> = ({
@@ -19,6 +20,7 @@ export let Img: React.FC<ImageProps> = ({
     width = null,
     alt = "placeholder",
     cover = false,
+    fit = null,
     ...props
 }) => {
     let builder = new StyleBuilder({})
@@ -27,6 +29,8 @@ export let Img: React.FC<ImageProps> = ({
         .addClass(styles.image)
 
     if (cover) builder.addClass(styles.cover)
+
+    builder.addStyle("objectFit", fit)
 
     return (
         <Frame {...props}>
