@@ -83,7 +83,8 @@
         transition: transform 0.2s;
         color: var(--anim-error);
         font-family: var(--monospace-font);
-        font-size: var(--anim-radius)
+        font-size: var(--anim-radius);
+        user-select: none;
     }
 }
 
