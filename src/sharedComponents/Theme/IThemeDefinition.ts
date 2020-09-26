@@ -1,5 +1,6 @@
 import { ButtonProps } from "../Button/Button";
 import { ImageViewProps } from "../ImageView/ImageView";
+import { InputProps } from "../Input/Input";
 import { LoadingIndicatorProps } from "../LoadingIndicator/LoadingIndicator";
 import { ToggleProps } from "../Toggle/Toggle";
 
@@ -34,7 +35,8 @@ export interface IThemeDefinition {
         LoadingIndicator: React.FC<LoadingIndicatorProps>,
         Button: React.FC<ButtonProps>,
         ImageView: React.FC<ImageViewProps>,
-        Toggle: React.FC<ToggleProps>
+        Toggle: React.FC<ToggleProps>,
+        Input: React.FC<InputProps>
     },
     className: string
 }

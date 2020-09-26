@@ -5,6 +5,7 @@ import { Validators } from "../../sharedComponents/FormHooks/Validators"
 import { Frame } from "../../sharedComponents/Grid/Frame"
 import { Col, Row } from "../../sharedComponents/Grid/frameDeriv"
 import { ImageView } from "../../sharedComponents/ImageView/ImageView"
+import { Input } from "../../sharedComponents/Input/Input"
 import { LoadingIndicator } from "../../sharedComponents/LoadingIndicator/LoadingIndicator"
 import { Code } from "../../sharedComponents/Text/Code"
 import { TextFrame } from "../../sharedComponents/Text/TextFrame"
@@ -95,6 +96,22 @@ export const sections = [
                     </Frame>
                     <Frame m="t3">
                         {errorToggle}
+                    </Frame>
+                </Frame>
+            </>
+        }
+    },
+    {
+        label: "Input",
+        Component: () => {
+            let [input] = useFormInput(Input, "", "Label here, write 'error' to see error state", [
+                Validators.matchRegexp(/^((?!error).)*$/, "Text must not contain an error")
+            ])
+
+            return <>
+                <Frame fill>
+                    <Frame>
+                        {input}
                     </Frame>
                 </Frame>
             </>

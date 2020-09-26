@@ -1,0 +1,97 @@
+@mixin text {
+    font-family: var(--normal-font);
+    font-size: 14px;
+    color: var(--foreground-color);
+}
+
+.container {
+    --decorator-color: var(--foreground-color);
+    margin-bottom: 2px;
+    transition: margin-bottom 0.1s ease-in-out;
+
+    .input {
+        @include text;
+        background: none;
+        border: none;
+        outline: none;
+        width: 100%;
+        height: 100%;
+        margin-bottom: 5px;
+    }
+    
+    .label {
+        @include text;
+        position: absolute;
+        opacity: 0.5;
+        top: 4px;
+        left: 2px;
+        user-select: none;
+        pointer-events: none;
+        transform: none;
+        transition: all 0.1s ease-in-out;
+        color: var(--decorator-color);
+    }
+
+    .bottom, .bottomSelected {
+        position: absolute;
+        left: 0;
+        top: 23px;
+        width: 100%;
+        height: 1px;
+        background-color: var(--decorator-color);
+        opacity: 0.5;
+        transition: all 0.1s ease-in-out;
+    }
+
+    .bottomSelected {
+        bottom: 24px;
+        height: 2px;
+        transform: scaleX(0)
+    }
+
+    .errorLabel {
+        @include text;
+        position: absolute;
+        top: 26px;
+        color: var(--error-color);
+        overflow: hidden;
+
+        div {
+            transform: translate(0, -100%);
+            transition: transform 0.1s ease-in-out;
+        }
+    }
+}
+
+.container:focus-within {
+    --decorator-color: var(--link-color);
+
+    .label, .bottom, .bottomSelected {
+        opacity: 1;
+    }
+
+    .bottomSelected {
+        transform: scaleX(1)
+    }
+}
+
+.error {
+    --decorator-color: var(--error-color) !important;
+    margin-bottom: 14px;
+
+    .label, .bottom, .bottomSelected {
+        opacity: 1;
+    }
+
+    .errorLabel {
+        div {
+            transform: none;
+        }
+    }
+}
+
+.container:focus-within, .active {
+    .label {
+        transform: translate(-13%, -80%) scale(0.75);
+    }
+}

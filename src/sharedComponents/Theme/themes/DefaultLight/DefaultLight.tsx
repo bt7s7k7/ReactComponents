@@ -2,6 +2,7 @@ import { IThemeDefinition } from "../../IThemeDefinition";
 import { DefaultWhiteThemeButton } from "./Button/Button";
 import styles from "./DefaultLight.module.scss";
 import { DefaultWhiteThemeImageView } from "./Image/Image";
+import { DefaultLightThemeInput } from "./Input/Input";
 import { DefaultWhiteThemeLoadingIndicator } from "./LoadingIndicator/LoadingIndicator";
 import { DefaultLightThemeToggle } from "./Toggle/Toggle";
 
@@ -36,7 +37,8 @@ export const DefaultLight: IThemeDefinition = {
         Button: DefaultWhiteThemeButton,
         ImageView: DefaultWhiteThemeImageView,
         LoadingIndicator: DefaultWhiteThemeLoadingIndicator,
-        Toggle: DefaultLightThemeToggle
+        Toggle: DefaultLightThemeToggle,
+        Input: DefaultLightThemeInput
     },
     className: styles.theme
 }
