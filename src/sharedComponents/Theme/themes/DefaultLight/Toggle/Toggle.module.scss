@@ -56,6 +56,8 @@
     .errorLabel {
         position: absolute;
         top: 20px;
+        overflow: hidden;
+        color: var(--error-color);
 
         div {
             transform: translate(0, -100%);
@@ -90,8 +92,7 @@
 
     .label, .errorLabel {
         color: var(--error-color);
-        opacity: 0.75;
-        overflow: hidden;
+        opacity: 1;
 
         div {
             transform: none;

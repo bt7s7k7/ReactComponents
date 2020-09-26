@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from "react"
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useStyleBuilder } from "../../../../StyleBuilder"
 import { ToggleProps } from "../../../../Toggle/Toggle"
 import styles from "./Toggle.module.scss"
@@ -20,6 +20,14 @@ export let DefaultLightThemeToggle: React.FC<ToggleProps> = ({
 
     const handleClick = useCallback(() => { onChange(!value); checkbox.current!.focus() }, [value, onChange])
 
+    let [keepError, setKeepError] = useState(error)
+
+    useEffect(() => {
+        if (error) {
+            setKeepError(error)
+        }
+    }, [error])
+
     return (
         <div id={id} {...styleBuilder.build()} onClick={handleClick}>
             <div className={styles.background + " " + styles.color}></div>
@@ -27,7 +35,7 @@ export let DefaultLightThemeToggle: React.FC<ToggleProps> = ({
             <input className={styles.hidden} type="checkbox" checked={value} ref={checkbox} onChange={handleClick} />
             <div className={styles.text + " " + styles.label}>{label}</div>
             <div className={styles.text + " " + styles.errorLabel}>
-                <div>{error}</div>
+                <div>{keepError}</div>
             </div>
         </div>
     )
