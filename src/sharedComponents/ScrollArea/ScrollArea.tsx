@@ -4,7 +4,13 @@ import { StyleBuilder } from "../StyleBuilder"
 import styles from "./ScrollArea.module.scss"
 
 export interface ScrollAreaProps {
+    /** Should scroll in the x axis 
+     * @default false
+     */
     x?: boolean
+    /** Should scroll in the y axis 
+     * @default this.x == false ? true : false
+     */
     y?: boolean
 }
 

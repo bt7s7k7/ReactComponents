@@ -7,11 +7,17 @@ import styles from "./Button.module.scss"
 import { Rippling, RipplingProps } from "./Rippling"
 
 export interface ButtonProps extends RipplingProps {
+    /** Is the button a confirm button (should it be green?) */
     confirm?: boolean
+    /** Is the button a deny/delete button (should it be red?) */
     deny?: boolean
+    /** Is the button round */
     round?: boolean
 }
 
+/**
+ * Use this element to indicate a clickable area. Text of the button is provided as the children.
+ */
 export let Button: React.FC<ButtonProps> = ({ children, confirm, deny, round = false, baseColor, ...props }) => {
 
     let background: FrameProps["background"] = baseColor ?? colors.link

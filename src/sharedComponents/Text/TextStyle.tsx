@@ -3,11 +3,13 @@ import { BaseProps, StyleableProps, StyleBuilder } from "../StyleBuilder"
 import styles from "./TextStyle.module.scss"
 
 export interface TextStyleProps extends StyleableProps, BaseProps {
+    /** Color value for the text */
     color?: React.CSSProperties["color"],
     size?: React.CSSProperties["fontSize"]
     weight?: React.CSSProperties["fontWeight"]
     bold?: boolean,
     font?: React.CSSProperties["fontFamily"],
+    /** Make the text not selectable */
     noSelect?: boolean
 }
 

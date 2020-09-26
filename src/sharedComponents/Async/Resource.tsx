@@ -9,10 +9,14 @@ export interface ResourceState<T> {
 
 export interface ResourceListener<T> extends RefObject<Dispatch<SetStateAction<ResourceState<T>>>> { }
 
+/**
+ * Wrap a `Promise` with this class to use the `Await` component to wait for resolution or rejection. Use the `Await` property to get a preconfigured `Await` component ready to be used. 
+ */
 export class Resource<T> {
     protected state = { data: null, error: null, done: false } as ResourceState<T>
     protected listeners = {} as Record<string, ResourceListener<T>>
     protected id = 0
+    /** An `Await` component with the type and resource already set */
     public Await: React.FC<Omit<AwaitProps<T>, "resource">> = (props) => {
         return <Await<T> {...props} resource={this} />
     }
@@ -44,6 +48,7 @@ export class Resource<T> {
     }
 }
 
+/** Hook to get the data and ready state from a resource */
 export function useResource<T>(resource: Resource<T>) {
     let [state, setState] = useState({ ...resource.getState() })
     let callback = useRef(setState)
