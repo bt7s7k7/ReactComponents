@@ -1,6 +1,7 @@
 import { ButtonProps } from "../Button/Button";
 import { ImageViewProps } from "../ImageView/ImageView";
 import { LoadingIndicatorProps } from "../LoadingIndicator/LoadingIndicator";
+import { ToggleProps } from "../Toggle/Toggle";
 
 export interface IThemeDefinition {
     colors: {
@@ -32,7 +33,8 @@ export interface IThemeDefinition {
     components: {
         LoadingIndicator: React.FC<LoadingIndicatorProps>,
         Button: React.FC<ButtonProps>,
-        ImageView: React.FC<ImageViewProps>
+        ImageView: React.FC<ImageViewProps>,
+        Toggle: React.FC<ToggleProps>
     },
     className: string
 }

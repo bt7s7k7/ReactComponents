@@ -1,4 +1,5 @@
 import React from "react"
+import { Link, useLocation } from "react-router-dom"
 import { Frame } from "../../sharedComponents/Grid/Frame"
 import { Col, Row } from "../../sharedComponents/Grid/frameDeriv"
 import { ScrollArea } from "../../sharedComponents/ScrollArea/ScrollArea"
@@ -13,11 +14,16 @@ export interface LibraryProps {
 }
 
 export let Library: React.FC<LibraryProps> = (props) => {
+    let filteredSections = sections
+    let hash = useLocation().hash
+    if (hash) filteredSections = filteredSections.filter(v => "#" + v.label === decodeURIComponent(hash))
     return (
         <ScrollArea fill>
-            {sections.map(section =>
+            {filteredSections.map(section =>
                 <Frame m="a3" key={section.label}>
-                    <TextFrame size={Theme.textSizes.heading}>{section.label}</TextFrame>
+                    <Link to={`/library#` + encodeURIComponent(section.label)}>
+                        <TextFrame size={Theme.textSizes.heading}>{section.label}</TextFrame>
+                    </Link>
                     <Row fill b="a" className={Theme.classes.round}>
                         <Theme theme={DefaultLight}>
                             <Col fill p="a3">

@@ -22,9 +22,8 @@ export class StyleBuilder {
         return this
     }
 
-    public addClass(className: string) {
-        this.classes.push(Theme.lookupClass(className, this.theme))
-
+    public addClass(className: string | null | false) {
+        if (className) this.classes.push(Theme.lookupClass(className, this.theme))
         return this
     }
 

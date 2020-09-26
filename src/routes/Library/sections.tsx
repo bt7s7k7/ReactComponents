@@ -1,11 +1,13 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Button } from "../../sharedComponents/Button/Button"
+import { useFormComponent } from "../../sharedComponents/FormHooks/useFormComponent"
 import { Frame } from "../../sharedComponents/Grid/Frame"
 import { Col, Row } from "../../sharedComponents/Grid/frameDeriv"
 import { ImageView } from "../../sharedComponents/ImageView/ImageView"
 import { LoadingIndicator } from "../../sharedComponents/LoadingIndicator/LoadingIndicator"
 import { Code } from "../../sharedComponents/Text/Code"
 import { TextFrame } from "../../sharedComponents/Text/TextFrame"
+import { Toggle } from "../../sharedComponents/Toggle/Toggle"
 import image from "./image.jpg"
 
 export interface Section {
@@ -76,5 +78,27 @@ export const sections = [
                 </Frame>
             </>
         }) as React.FC<{}>
+    },
+    {
+        label: "Toggle",
+        Component: () => {
+            let [hookedToggle] = useFormComponent(Toggle, false, "Normal toggle")
+            let [errorToggle, active, , , setError] = useFormComponent(Toggle, false, "Toggle this one to trigger error")
+            useEffect(() => {
+                setError(active ? "Error message goes here!" : "")
+            }, [active])
+
+            const [state, setState] = useState(false)
+            return <>
+                <Frame fill>
+                    <Frame >
+                        {hookedToggle}
+                    </Frame>
+                    <Frame m="t3">
+                        {errorToggle}
+                    </Frame>
+                </Frame>
+            </>
+        }
     }
 ] as Section[]

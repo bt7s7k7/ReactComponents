@@ -1,0 +1,105 @@
+.background {
+    position: relative;
+    height: 15px;
+    width: 40px;
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+.toggle {
+    --anim-duration: 0.1s;
+    --active-color: var(--link-color);
+    --inactive-color: #000000;
+    --inactive-knob-color: #ffffff;
+    box-shadow: 0 0 2px gray;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    transition: margin-bottom var(--anim-duration) ease-in-out;
+
+    .color {
+        transition: background-color var(--anim-duration) ease-in-out;
+        background-color: var(--inactive-color);
+        opacity: 0.2;
+    }
+
+    .knob {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        top: 0;
+        left: 0;
+        background-color: var(--inactive-knob-color);
+        transition: transform var(--anim-duration) ease-in-out,
+                    background-color var(--anim-duration) ease-in-out,
+                    box-shadow var(--anim-duration) ease-in-out;
+        transform: translate(-10%, -10%);
+        box-shadow: 0 0 2px gray;
+    }
+
+    .text {
+        font-family: var(--normal-font);
+        font-size: 14px;
+        white-space: nowrap;
+        user-select: none;
+    }
+
+    .label {
+        position: absolute;
+        opacity: 0.75;
+        top: -1px;
+        left: 45px;
+        opacity: 0.5;
+        color: var(--foreground-color);
+    }
+
+    .errorLabel {
+        position: absolute;
+        top: 20px;
+
+        div {
+            transform: translate(0, -100%);
+            transition: transform var(--anim-duration) ease-in-out;
+        }
+    }
+}
+
+.toggle:hover, .toggle:focus-within {
+    .knob {
+        box-shadow: 0 0 6px gray;
+    }
+}
+
+.active {
+    .color {
+        background-color: var(--active-color);
+    }
+    
+    .knob {
+        transform: translate(110%, -10%);
+        background-color: var(--active-color);
+    }
+}
+
+.error {
+    --active-color: var(--error-color);
+    --inactive-color: var(--error-color);
+    --inactive-knob-color: var(--error-color);
+
+    margin-bottom: 14px;
+
+    .label, .errorLabel {
+        color: var(--error-color);
+        opacity: 0.75;
+        overflow: hidden;
+
+        div {
+            transform: none;
+        }
+    }
+}
+
+.hidden {
+    position: absolute;
+    transform: scale(0);
+}

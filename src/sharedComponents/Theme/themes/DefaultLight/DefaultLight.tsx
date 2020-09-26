@@ -3,6 +3,7 @@ import { DefaultWhiteThemeButton } from "./Button/Button";
 import styles from "./DefaultLight.module.scss";
 import { DefaultWhiteThemeImageView } from "./Image/Image";
 import { DefaultWhiteThemeLoadingIndicator } from "./LoadingIndicator/LoadingIndicator";
+import { DefaultLightThemeToggle } from "./Toggle/Toggle";
 
 export const DefaultLight: IThemeDefinition = {
     colors: {
@@ -34,7 +35,8 @@ export const DefaultLight: IThemeDefinition = {
     components: {
         Button: DefaultWhiteThemeButton,
         ImageView: DefaultWhiteThemeImageView,
-        LoadingIndicator: DefaultWhiteThemeLoadingIndicator
+        LoadingIndicator: DefaultWhiteThemeLoadingIndicator,
+        Toggle: DefaultLightThemeToggle
     },
     className: styles.theme
 }
