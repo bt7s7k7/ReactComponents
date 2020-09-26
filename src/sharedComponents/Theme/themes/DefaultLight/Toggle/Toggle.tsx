@@ -18,7 +18,7 @@ export let DefaultLightThemeToggle: React.FC<ToggleProps> = ({
         .addClass(value && styles.active)
         .addClass(error && styles.error)
 
-    const handleClick = useCallback(() => { onChange(!value); checkbox.current!.focus() }, [value])
+    const handleClick = useCallback(() => { onChange(!value); checkbox.current!.focus() }, [value, onChange])
 
     return (
         <div id={id} {...styleBuilder.build()} onClick={handleClick}>

@@ -1,5 +1,5 @@
 import React from "react"
-import { FormComponentProps } from "../FormHooks/useFormComponent"
+import { FormComponentProps } from "../FormHooks/useFormInput"
 import { Frame, FrameProps } from "../Grid/Frame"
 import { StyleableProps } from "../StyleBuilder"
 import { useTheme } from "../Theme/ThemeContext"

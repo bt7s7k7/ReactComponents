@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Button } from "../../sharedComponents/Button/Button"
-import { useFormComponent } from "../../sharedComponents/FormHooks/useFormComponent"
+import { useFormInput } from "../../sharedComponents/FormHooks/useFormInput"
+import { Validators } from "../../sharedComponents/FormHooks/Validators"
 import { Frame } from "../../sharedComponents/Grid/Frame"
 import { Col, Row } from "../../sharedComponents/Grid/frameDeriv"
 import { ImageView } from "../../sharedComponents/ImageView/ImageView"
@@ -82,13 +83,11 @@ export const sections = [
     {
         label: "Toggle",
         Component: () => {
-            let [hookedToggle] = useFormComponent(Toggle, false, "Normal toggle")
-            let [errorToggle, active, , , setError] = useFormComponent(Toggle, false, "Toggle this one to trigger error")
-            useEffect(() => {
-                setError(active ? "Error message goes here!" : "")
-            }, [active])
+            let [hookedToggle] = useFormInput(Toggle, false, "Normal toggle")
+            let [errorToggle] = useFormInput(Toggle, false, "Toggle this one to trigger error", [
+                Validators.unchecked("Error message goes here!")
+            ])
 
-            const [state, setState] = useState(false)
             return <>
                 <Frame fill>
                     <Frame >
