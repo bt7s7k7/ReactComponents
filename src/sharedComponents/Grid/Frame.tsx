@@ -1,9 +1,9 @@
 import React, { forwardRef } from "react"
-import { colors } from "../constants"
-import { BaseProps, StyleableProps, StyleBuilder } from "../StyleBuilder"
+import { StyleableProps, useStyleBuilder } from "../StyleBuilder"
+import { useTheme } from "../Theme/ThemeContext"
 import styles from "./Frame.module.scss"
 
-export interface FrameProps extends StyleableProps {
+export interface FrameProps extends StyleableProps, React.DOMAttributes<HTMLDivElement> {
     basis?: React.CSSProperties["flexBasis"]
     grow?: React.CSSProperties["flexGrow"]
     shrink?: React.CSSProperties["flexShrink"]
@@ -15,7 +15,9 @@ export interface FrameProps extends StyleableProps {
     background?: React.CSSProperties["background"] | boolean,
     p?: string
     m?: string,
-    b?: string
+    b?: string,
+    children?: React.ReactNode,
+    component?: React.ComponentType<StyleableProps>
 }
 
 export function parseDirectionalProp(prop: string | null, value = "var(--gap-size)") {
@@ -101,7 +103,7 @@ export function parseBorder(prop: string | null, borderValue = "var(--border)") 
     } else return null
 }
 
-export let Frame = forwardRef<HTMLDivElement, FrameProps & BaseProps>(function Frame({
+export let Frame = forwardRef<HTMLDivElement, FrameProps>(function Frame({
     children,
     basis = null,
     grow = null,
@@ -115,9 +117,12 @@ export let Frame = forwardRef<HTMLDivElement, FrameProps & BaseProps>(function F
     p: padding = null,
     m: margin = null,
     b: border = null,
+    component: Component = null,
     ...props
 }, ref) {
-    var styleBuilder = new StyleBuilder(props)
+    const { colors } = useTheme()
+
+    var styleBuilder = useStyleBuilder(props)
         .addStyle("flexDirection", direction)
         .addStyle("flexBasis", basis)
         .addStyle("flexGrow", grow)
@@ -140,6 +145,12 @@ export let Frame = forwardRef<HTMLDivElement, FrameProps & BaseProps>(function F
 
     if (background != null) console.log(background)
 
-    return <div {...styleBuilder.build(props)} ref={ref}>{children}</div>
+    if (Component != null) {
+        let { className: _ignore, style: _, ...childProps } = props
+
+        return <Component {...styleBuilder.build()} {...childProps}>{children}</Component>
+    } else {
+        return <div {...styleBuilder.build()} ref={ref}>{children}</div>
+    }
 })
 

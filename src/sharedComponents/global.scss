@@ -1,15 +1,9 @@
 @use "./common.scss";
+@use "./Theme/themes/DefaultLight/DefaultLight.module.scss";
 
 :root {
-    @include common.defaultSizes;
-
-    @include common.defaultColors;
-
-    @include common.defaultFontSize;
-
-    @include common.defaultFonts;  
-
-    --border: 1px solid lightgray
+    --border: 1px solid lightgray;
+    @include DefaultLight.variables;
 }
 
 a {

@@ -1,45 +1,23 @@
 import React, { useEffect, useRef } from "react"
-import { colors } from "../constants"
+import { LoadingIndicatorProps } from "../../../../LoadingIndicator/LoadingIndicator"
+import { useTheme } from "../../../ThemeContext"
 import styles from "./LoadingIndicator.module.scss"
-
-export interface LoadingIndicatorProps {
-    /** Duration in seconds of the loading animation 
-     *  @default 0.6 */
-    duration?: number
-    /** Radius in pixels of the loading animation 
-     *  @default 50
-     */
-    radius?: number
-    /** Background style of the dots in the loading animation
-     *  @default colors.foreground
-     */
-    background?: string
-    /** Background style of the dots in the loading animation in the error state
-     *  @default colors.delete
-    */
-    backgroundError?: string
-    /** Size (not radius) in pixels of the dots in the loading animation 
-     *  @default 10
-     */
-    dotSize?: number
-    /** Is the error state active? 
-     *  @default false
-     */
-    error?: boolean
-}
 
 /**
  * This elements shows a loading animation. Can also indicate an error using the `error` property.
  */
-export let LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
+export let DefaultWhiteThemeLoadingIndicator: React.FC<LoadingIndicatorProps> = ({
     duration = 0.6,
     radius = 50,
-    background = colors.foreground,
-    backgroundError = colors.delete,
+    background = null,
+    backgroundError = null,
     dotSize = 10,
     error = false
 }) => {
     let container = useRef<HTMLDivElement>(null)
+    let theme = useTheme()
+    background = background ?? theme.colors.foreground
+    backgroundError = backgroundError ?? theme.colors.error
 
     useEffect(() => { // Setting the CSS variables
         container.current?.style.setProperty("--anim-duration", duration + "s")

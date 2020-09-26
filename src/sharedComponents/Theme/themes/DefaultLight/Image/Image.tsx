@@ -1,20 +1,11 @@
 import React from "react"
-import { Frame, FrameProps } from "../Grid/Frame"
-import { StyleBuilder } from "../StyleBuilder"
+import { ImageViewProps } from "../../../../ImageView/ImageView"
+import { useStyleBuilder } from "../../../../StyleBuilder"
 import styles from "./Image.module.scss"
 
 const GREY_DATA_URI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+QJDhEDEIewbJYAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAADElEQVQI12MoLy8HAALOAWbheX3bAAAAAElFTkSuQmCC"
 
-export interface ImageProps extends FrameProps {
-    src?: string
-    height?: React.CSSProperties["height"]
-    width?: React.CSSProperties["width"]
-    alt?: string,
-    cover?: boolean,
-    fit?: React.CSSProperties["objectFit"]
-}
-
-export let Img: React.FC<ImageProps> = ({
+export let DefaultWhiteThemeImageView: React.FC<ImageViewProps> = ({
     src = GREY_DATA_URI,
     height = null,
     width = null,
@@ -23,7 +14,7 @@ export let Img: React.FC<ImageProps> = ({
     fit = null,
     ...props
 }) => {
-    let builder = new StyleBuilder({})
+    let builder = useStyleBuilder(props)
         .addStyle("width", width)
         .addStyle("height", height)
         .addClass(styles.image)
@@ -33,8 +24,6 @@ export let Img: React.FC<ImageProps> = ({
     builder.addStyle("objectFit", fit)
 
     return (
-        <Frame {...props}>
-            <img src={src} alt={alt} {...builder.build()}></img>
-        </Frame>
+        <img src={src} alt={alt} {...builder.build()}></img>
     )
 }

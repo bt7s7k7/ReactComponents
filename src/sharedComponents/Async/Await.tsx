@@ -1,10 +1,9 @@
 import React from "react"
-import { colors } from "../constants"
 import { Frame } from "../Grid/Frame"
 import { Col } from "../Grid/frameDeriv"
+import { LoadingIndicator } from "../LoadingIndicator/LoadingIndicator"
 import { Code } from "../Text/Code"
 import { TextFrame } from "../Text/TextFrame"
-import { LoadingIndicator } from "./LoadingIndicator"
 import { Resource, useResource } from "./Resource"
 
 export interface AwaitProps<T> {
@@ -43,7 +42,7 @@ export let Await = function <T>({
                 <Frame center>
                     <LoadingIndicator error />
                 </Frame>
-                <TextFrame m="t3" center color={colors.delete}>{reason}</TextFrame>
+                <TextFrame m="t3" center color="deny">{reason}</TextFrame>
             </Frame>
         </Col>
     ),

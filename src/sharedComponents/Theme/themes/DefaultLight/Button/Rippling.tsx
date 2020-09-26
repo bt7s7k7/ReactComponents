@@ -1,9 +1,7 @@
 import React, { useCallback, useEffect, useRef } from "react"
-import { colors } from "../constants"
-import { Frame, FrameProps } from "../Grid/Frame"
-import { BaseProps } from "../StyleBuilder"
+import { useTheme } from "../../../ThemeContext"
 
-export interface RipplePrototype {
+export interface RipplePrototype extends React.DOMAttributes<HTMLDivElement> {
     /** How long till the animation ends in seconds */
     duration: number
     /** Which color should the ripple have. When set disables `.brighten`
@@ -27,35 +25,38 @@ export interface RipplePrototype {
     brighten?: number
 }
 
-export interface RipplingProps extends Omit<FrameProps, "background">, BaseProps {
+export interface RipplingProps {
     baseColor?: string,
     ripples?: RipplePrototype[]
 }
 
 /** Use this element to create an area with rippling waves just as the `Button` has. */
-export let Rippling: React.FC<RipplingProps> = ({ baseColor = colors.link, ripples = [], ...props }) => {
+export let Rippling: React.FC<RipplingProps> = ({ baseColor = null, ripples = [], ...props }) => {
 
     let element = useRef<HTMLDivElement>(null)
 
     let computedBaseColor = useRef([0, 0, 0])
 
+    let theme = useTheme()
+    let base = baseColor ?? theme.colors.link
+
     useEffect(() => { // Computing the actual value of the baseColor, which could be a CSS variable
         if (element.current != null) {
-            let base = baseColor
-            if (base.startsWith("var")) { // If it's a variable resolve it 
+            let colorString = base
+            if (colorString.startsWith("var")) { // If it's a variable resolve it 
                 let computed = getComputedStyle(element.current)
-                base = computed.getPropertyValue(base.substr(4, base.length - 4 - 1)).trim()
+                colorString = computed.getPropertyValue(colorString.substr(4, colorString.length - 4 - 1)).trim()
             }
 
             let color = [ // Parse the hex color string
-                parseInt(base.substr(1, 2), 16),
-                parseInt(base.substr(3, 2), 16),
-                parseInt(base.substr(5, 2), 16)
+                parseInt(colorString.substr(1, 2), 16),
+                parseInt(colorString.substr(3, 2), 16),
+                parseInt(colorString.substr(5, 2), 16)
             ]
 
             computedBaseColor.current = color
         }
-    }, [baseColor])
+    }, [base, theme])
 
     /** All active ripples */
     let animRipples = useRef<{
@@ -156,16 +157,12 @@ export let Rippling: React.FC<RipplingProps> = ({ baseColor = colors.link, rippl
     }
 
     return (
-        <Frame {...props} ref={element} onMouseEnter={(event) => {
-            if (props.onMouseEnter != null) props.onMouseEnter(event)
+        <div {...props} ref={element} onMouseEnter={(event) => {
             triggerHandler(event, "enter")
         }} onMouseDown={event => {
             event.preventDefault()
-            if (props.onMouseDown != null) props.onMouseDown(event)
             triggerHandler(event, "down")
-        }} onMouseLeave={(event) => {
-            if (props.onMouseLeave) props.onMouseLeave(event)
-
+        }} onMouseLeave={() => {
             animRipples.current.forEach(v => v.prototype.trigger === "enter" && v.prototype.keepAlive && v.keepAliveOverride == null && (v.keepAliveOverride = Date.now()))
         }} />
     )

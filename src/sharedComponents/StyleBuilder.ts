@@ -1,3 +1,6 @@
+import { IThemeDefinition } from "./Theme/IThemeDefinition"
+import { Theme } from "./Theme/Theme"
+import { useTheme } from "./Theme/ThemeContext"
 
 export class StyleBuilder {
     protected style = {} as React.CSSProperties
@@ -5,7 +8,7 @@ export class StyleBuilder {
     protected classes = [] as string[]
     protected overrideClasses = [] as string[]
 
-    addStyle<T extends keyof React.CSSProperties>(key: T, value: React.CSSProperties[T] | null) {
+    public addStyle<T extends keyof React.CSSProperties>(key: T, value: React.CSSProperties[T] | null) {
         if (value != null) {
             this.style[key] = value
         }
@@ -13,30 +16,38 @@ export class StyleBuilder {
         return this
     }
 
-    addStyles(styles: Partial<React.CSSProperties> | null) {
+    public addStyles(styles: Partial<React.CSSProperties> | null) {
         if (styles != null)
             Object.entries(styles).forEach(([key, value]) => value != null && this.addStyle(key as keyof React.CSSProperties, value))
         return this
     }
 
-    addClass(className: string) {
-        this.classes.push(className)
+    public addClass(className: string) {
+        this.classes.push(Theme.lookupClass(className, this.theme))
 
         return this
     }
 
-    build(props: BaseProps = {}) {
-        let { noPropagation = false } = props
-        return { ...(noPropagation ? {} : props), style: { ...this.style, ...this.overrideStyle }, className: [...this.classes, ...this.overrideClasses].join(" ") }
+    public build() {
+        return { style: { ...this.style, ...this.overrideStyle }, className: [...this.classes, ...this.overrideClasses].join(" ") }
     }
 
-    constructor({ style = {}, className = "" }: StyleableProps) {
+    protected constructor({ style = {}, className = "" }: StyleableProps, protected theme: IThemeDefinition) {
         this.overrideStyle = { ...style }
-        if (typeof className == "string") {
-            this.overrideClasses.push(className)
-        } else {
-            this.overrideClasses.push(...(className.filter(v => v != null) as string[]))
+
+        const addClass = (className: string) => {
+            this.overrideClasses.push(Theme.lookupClass(className, theme))
         }
+
+        if (typeof className == "string") {
+            addClass(className)
+        } else {
+            className.forEach(v => v != null && addClass(v))
+        }
+    }
+
+    static makeStyleBuilder(props: StyleableProps, theme: IThemeDefinition) {
+        return new StyleBuilder(props, theme)
     }
 }
 
@@ -45,6 +56,6 @@ export interface StyleableProps {
     style?: React.CSSProperties
 }
 
-export interface BaseProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "className" | "color"> {
-    noPropagation?: boolean
+export function useStyleBuilder(props: StyleableProps) {
+    return StyleBuilder.makeStyleBuilder(props, useTheme())
 }

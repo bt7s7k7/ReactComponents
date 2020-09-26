@@ -1,13 +1,8 @@
-@use "../common.scss";
-
-.darkTheme {
+.theme {
     --hover-color: #004444;
     --active-color: #253f25;
     --background-color: #262626;
     --foreground-color: #ffffff;
     --code-color: #353535;
-}
-
-.whiteTheme {
-    @include common.defaultColors;
+    --error-color: #ff3a2c;
 }

@@ -36,13 +36,13 @@ export let Async: React.FC<AsyncProps> = (props) => {
             <Col basis="200px" b="l" p="a3">
                 {
                     !done ? (resHost == null
-                        ? <Button onClick={makeResource}>Create Resource</Button>
+                        ? <Button.Frame onClick={makeResource}>Create Resource</Button.Frame>
                         : <>
-                            <Button onClick={() => { resHost!.resolve("Got data!"); setDone(true) }}>Resolve Resource</Button>
-                            <Button m="t3" onClick={() => { resHost!.reject("Error"); setDone(true) }}>Reject Resource</Button>
+                            <Button.Frame onClick={() => { resHost!.resolve("Got data!"); setDone(true) }}>Resolve Resource</Button.Frame>
+                            <Button.Frame m="t3" onClick={() => { resHost!.reject("Error"); setDone(true) }}>Reject Resource</Button.Frame>
                         </>
                     )
-                        : <Button onClick={() => { setResource(null); setDone(false) }}>Reset</Button>
+                        : <Button.Frame onClick={() => { setResource(null); setDone(false) }}>Reset</Button.Frame>
                 }
             </Col>
         </Row>

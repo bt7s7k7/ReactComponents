@@ -1,14 +1,17 @@
 import React from "react"
-import { BaseProps, StyleableProps, StyleBuilder } from "../StyleBuilder"
+import { StyleableProps, useStyleBuilder } from "../StyleBuilder"
+import { IThemeDefinition } from "../Theme/IThemeDefinition"
+import { Theme } from "../Theme/Theme"
+import { useTheme } from "../Theme/ThemeContext"
 import styles from "./TextStyle.module.scss"
 
-export interface TextStyleProps extends StyleableProps, BaseProps {
+export interface TextStyleProps extends StyleableProps {
     /** Color value for the text */
-    color?: React.CSSProperties["color"],
-    size?: React.CSSProperties["fontSize"]
+    color?: React.CSSProperties["color"] | keyof IThemeDefinition["colors"],
+    size?: React.CSSProperties["fontSize"] | keyof IThemeDefinition["textSizes"]
     weight?: React.CSSProperties["fontWeight"]
     bold?: boolean,
-    font?: React.CSSProperties["fontFamily"],
+    font?: React.CSSProperties["fontFamily"] | keyof IThemeDefinition["fonts"]
     /** Make the text not selectable */
     noSelect?: boolean
 }
@@ -23,12 +26,13 @@ export let TextStyle: React.FC<TextStyleProps> = ({
     noSelect = false,
     ...props
 }) => {
+    let theme = useTheme()
 
-    var styleBuilder = new StyleBuilder(props)
-        .addStyle("color", color)
-        .addStyle("fontSize", size)
+    var styleBuilder = useStyleBuilder(props)
+        .addStyle("color", Theme.lookupColor(color, theme))
+        .addStyle("fontSize", Theme.lookupTextSize(size, theme))
         .addStyle("fontWeight", weight)
-        .addStyle("fontFamily", font)
+        .addStyle("fontFamily", Theme.lookupFont(font, theme))
 
     styleBuilder.addClass(styles.textStyle)
 
@@ -41,6 +45,6 @@ export let TextStyle: React.FC<TextStyleProps> = ({
     }
 
     return (
-        <span {...styleBuilder.build(props)}>{children}</span>
+        <span {...styleBuilder.build()}>{children}</span>
     )
 }

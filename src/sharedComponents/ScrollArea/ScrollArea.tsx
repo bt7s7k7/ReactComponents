@@ -1,6 +1,6 @@
 import React from "react"
 import { Frame, FrameProps } from "../Grid/Frame"
-import { StyleBuilder } from "../StyleBuilder"
+import { useStyleBuilder } from "../StyleBuilder"
 import styles from "./ScrollArea.module.scss"
 
 export interface ScrollAreaProps {
@@ -21,7 +21,7 @@ export let ScrollArea: React.FC<ScrollAreaProps & FrameProps> = ({
     ...frameProps
 }) => {
 
-    var internalStyleBuilder = new StyleBuilder({})
+    var internalStyleBuilder = useStyleBuilder({})
     internalStyleBuilder.addClass(styles.scrollArea)
 
     if (x === true) {

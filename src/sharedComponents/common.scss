@@ -2,31 +2,3 @@
     display: flex;
     flex-direction: column;
 }
-
-@mixin defaultColors {
-    --hover-color: #e0ffff;
-    --active-color: #9cff9c;
-    --confirm-color: #4CAF50;
-    --delete-color: #e9250f;
-    --link-color: #005dff;
-    --background-color: #ffffff;
-    --foreground-color: #000000;
-    --button-color: #ffffff;
-    --code-color: #dddddd;
-}
-
-@mixin defaultSizes {
-    --gap-size: 4px;
-}
-
-@mixin defaultFontSize {
-    --normal-text-size: 14px;
-    --heading-text-size: 42px;
-    --header-text-size: 70px;
-}
-
-@mixin defaultFonts {
-    --normal-font: Verdana, Geneva, Tahoma, sans-serif;
-    --monospace-font: 'Courier New', Courier, monospace;
-    --serif-font: 'Times New Roman', Times, serif;
-}

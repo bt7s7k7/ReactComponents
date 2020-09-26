@@ -1,15 +1,16 @@
 import React from "react"
-import { colors, fonts, textSizes } from "../constants"
+import { IThemeDefinition } from "../Theme/IThemeDefinition"
+import { Theme } from "../Theme/Theme"
 import { TextStyle } from "./TextStyle"
 
 export let TextColor = Object.assign({},
-    ...Object.entries(colors).map(([key, value]) => ({ [key]: ((props) => <TextStyle {...{ ...props, color: value }} />) as typeof TextStyle }))
-) as { [P in keyof typeof colors]: typeof TextStyle }
+    ...Object.entries(Theme.colors).map(([key, value]) => ({ [key]: ((props) => <TextStyle {...{ ...props, color: value }} />) as typeof TextStyle }))
+) as { [P in keyof IThemeDefinition["colors"]]: typeof TextStyle }
 
 export let TextSize = Object.assign({},
-    ...Object.entries(textSizes).map(([key, value]) => ({ [key]: ((props) => <TextStyle {...{ ...props, size: value }} />) as typeof TextStyle }))
-) as { [P in keyof typeof textSizes]: typeof TextStyle }
+    ...Object.entries(Theme.textSizes).map(([key, value]) => ({ [key]: ((props) => <TextStyle {...{ ...props, size: value }} />) as typeof TextStyle }))
+) as { [P in keyof IThemeDefinition["textSizes"]]: typeof TextStyle }
 
 export let Font = Object.assign({},
-    ...Object.entries(fonts).map(([key, value]) => ({ [key]: ((props) => <TextStyle {...{ ...props, font: value }} />) as typeof TextStyle }))
-) as { [P in keyof typeof fonts]: typeof TextStyle }
+    ...Object.entries(Theme.fonts).map(([key, value]) => ({ [key]: ((props) => <TextStyle {...{ ...props, font: value }} />) as typeof TextStyle }))
+) as { [P in keyof IThemeDefinition["fonts"]]: typeof TextStyle }

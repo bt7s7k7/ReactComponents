@@ -6,7 +6,7 @@ import { TextStyle, TextStyleProps } from "./TextStyle"
 export let TextFrame: React.FC<FrameProps & TextStyleProps> = (props) => {
     return (
         <Frame {...props}>
-            <TextStyle {...props} noPropagation>
+            <TextStyle {...props}>
                 {props.children}
             </TextStyle>
         </Frame>
