@@ -104,3 +104,11 @@
     position: absolute;
     transform: scale(0);
 }
+
+.confirm {
+    --active-color: var(--confirm-color)
+}
+
+.deny {
+    --active-color: var(--delete-color)
+}

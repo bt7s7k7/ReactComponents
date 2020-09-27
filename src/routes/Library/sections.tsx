@@ -85,14 +85,24 @@ export const sections = [
         label: "Toggle",
         Component: () => {
             let [hookedToggle] = useFormInput(Toggle, false, "Normal toggle")
-            let [errorToggle] = useFormInput(Toggle, false, "Toggle this one to trigger error", [
-                Validators.unchecked("Error message goes here!")
-            ])
+            let [greenToggle] = useFormInput(Toggle, false, "Green toggle", { props: { confirm: true } })
+            let [redToggle] = useFormInput(Toggle, false, "Green toggle", { props: { deny: true } })
+            let [errorToggle] = useFormInput(Toggle, false, "Toggle this one to trigger error", {
+                validators: [
+                    Validators.unchecked("Error message goes here!")
+                ]
+            })
 
             return <>
                 <Frame fill>
                     <Frame >
                         {hookedToggle}
+                    </Frame>
+                    <Frame m="t3">
+                        {greenToggle}
+                    </Frame>
+                    <Frame m="t3">
+                        {redToggle}
                     </Frame>
                     <Frame m="t3">
                         {errorToggle}
@@ -104,9 +114,11 @@ export const sections = [
     {
         label: "Input",
         Component: () => {
-            let [input] = useFormInput(Input, "", "Label here, write 'error' to see error state", [
-                Validators.matchRegexp(/^((?!error).)*$/, "Text must not contain an error")
-            ])
+            let [input] = useFormInput(Input, "", "Label here, write 'error' to see error state", {
+                validators: [
+                    Validators.matchRegexp(/^((?!error).)*$/, "Text must not contain an error")
+                ]
+            })
 
             return <>
                 <Frame fill>

@@ -22,6 +22,11 @@ export class StyleBuilder {
         return this
     }
 
+    public setProperty(key: string, value: string | null | undefined) {
+        if (value != null) (this.style as any)[key] = value
+        return this
+    }
+
     public addClass(className: string | null | false) {
         if (className) this.classes.push(Theme.lookupClass(className, this.theme))
         return this
