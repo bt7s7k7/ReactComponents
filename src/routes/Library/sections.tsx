@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Button } from "../../sharedComponents/Button/Button"
+import { useForm } from "../../sharedComponents/FormHooks/useForm"
 import { useFormInput } from "../../sharedComponents/FormHooks/useFormInput"
 import { Validators } from "../../sharedComponents/FormHooks/Validators"
 import { Frame } from "../../sharedComponents/Grid/Frame"
@@ -141,6 +142,25 @@ export const sections = [
                     </form>
                 </Frame>
             </>
+        }
+    },
+    {
+        label: "Form",
+        Component: () => {
+            let [form, result, , valid] = useForm({
+                name: useFormInput(Input, "", "Name", { validators: [Validators.required()], props: { type: "text", autocomplete: "name" } }),
+                email: useFormInput(Input, "", "Email", { validators: [Validators.required()], props: { type: "email", autocomplete: "email" } }),
+            })
+
+            return (
+                <Frame fill>
+                    {form}
+                    <Frame>
+                        <Code>{JSON.stringify(result, null, 2)}</Code>
+                        <Code>{JSON.stringify(valid, null, 2)}</Code>
+                    </Frame>
+                </Frame>
+            )
         }
     }
 ] as Section[]

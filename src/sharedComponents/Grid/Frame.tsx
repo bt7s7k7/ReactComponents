@@ -143,8 +143,6 @@ export let Frame = forwardRef<HTMLDivElement, FrameProps>(function Frame({
         styleBuilder.addClass(styles.center)
     }
 
-    if (background != null) console.log(background)
-
     if (Component != null) {
         let { className: _ignore, style: _, ...childProps } = props
 

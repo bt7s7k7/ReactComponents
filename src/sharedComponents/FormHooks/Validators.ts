@@ -4,4 +4,5 @@ export const Validators = {
     matchRegexp: (regexp: RegExp, msg = `Text must match ${regexp}`) => (value: string) => regexp.test(value) ? null : msg,
     number: (msg = "This field must be a number") => (value: string) => /^[+-]?\d*(\.\d+)?([eE][+-]?\d+(\.\d+)?)?$/.test(value) ? null : msg,
     integer: (msg = "This field must be a number") => (value: string) => /^\d+$/.test(value) ? null : msg,
+    required: (msg = "This field is required") => (value: string) => value !== "" ? null : msg
 }

@@ -38,9 +38,9 @@ export function useFormInput<T extends React.ComponentType<FormComponentProps<an
         setState(value)
     }, [validators])
 
-    const result = {
+    const result: FormInput<ComponentValueType<T>> = {
         // @ts-ignore
-        Component: <Component {...props} value={state} onChange={setStateAndValidate} error={error} label={label} />,
+        element: <Component {...props} value={state} onChange={setStateAndValidate} error={error} label={label} />,
         state,
         setState: setStateAndValidate,
         error,
@@ -48,7 +48,7 @@ export function useFormInput<T extends React.ComponentType<FormComponentProps<an
     }
 
     const resultArray = [
-        result.Component,
+        result.element,
         result.state,
         result.setState,
         result.error,
@@ -56,4 +56,12 @@ export function useFormInput<T extends React.ComponentType<FormComponentProps<an
     ] as const
 
     return Object.assign(resultArray, result) as typeof result & typeof resultArray
+}
+
+export interface FormInput<T> {
+    element: JSX.Element;
+    state: T
+    setState: (value: T) => void
+    error: string | null
+    setError: React.Dispatch<React.SetStateAction<string | null>>
 }
