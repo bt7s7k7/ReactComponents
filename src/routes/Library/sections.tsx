@@ -114,6 +114,12 @@ export const sections = [
     {
         label: "Input",
         Component: () => {
+            let [numberInput] = useFormInput(Input, "", "This is a number input", {
+                validators: [
+                    Validators.number("Value must be a number")
+                ]
+            })
+            let [emailInput] = useFormInput(Input, "", "This one has browser native email validation", { props: { type: "email" } })
             let [input] = useFormInput(Input, "", "Label here, write 'error' to see error state", {
                 validators: [
                     Validators.matchRegexp(/^((?!error).)*$/, "Text must not contain an error")
@@ -122,9 +128,17 @@ export const sections = [
 
             return <>
                 <Frame fill>
-                    <Frame>
-                        {input}
-                    </Frame>
+                    <form>
+                        <Frame>
+                            {numberInput}
+                        </Frame>
+                        <Frame>
+                            {emailInput}
+                        </Frame>
+                        <Frame>
+                            {input}
+                        </Frame>
+                    </form>
                 </Frame>
             </>
         }

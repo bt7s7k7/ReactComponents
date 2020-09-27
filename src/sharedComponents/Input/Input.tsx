@@ -1,11 +1,13 @@
-import React from "react"
+import React, { HTMLProps } from "react"
 import { FormComponentProps } from "../FormHooks/useFormInput"
 import { Frame, FrameProps } from "../Grid/Frame"
 import { StyleableProps } from "../StyleBuilder"
 import { useTheme } from "../Theme/ThemeContext"
 
 export interface InputProps extends FormComponentProps<string>, StyleableProps {
-
+    type?: HTMLProps<HTMLInputElement>["type"],
+    autocomplete?: HTMLProps<HTMLInputElement>["autoComplete"],
+    pattern?: HTMLProps<HTMLInputElement>["pattern"] | RegExp
 }
 
 let Component: React.FC<InputProps> = (props) => {
