@@ -46,7 +46,7 @@ export class StyleBuilder {
         if (typeof className == "string") {
             addClass(className)
         } else {
-            className.forEach(v => v != null && addClass(v))
+            className.forEach(v => v && addClass(v))
         }
     }
 
@@ -56,7 +56,7 @@ export class StyleBuilder {
 }
 
 export interface StyleableProps {
-    className?: string | (string | null)[]
+    className?: string | (string | null | false)[]
     style?: React.CSSProperties
 }
 
