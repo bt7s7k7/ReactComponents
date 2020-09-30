@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useMemo, useState } from "react"
 import { Button } from "../../sharedComponents/Button/Button"
 import { useForm } from "../../sharedComponents/FormHooks/useForm"
 import { useFormInput } from "../../sharedComponents/FormHooks/useFormInput"
@@ -7,6 +7,7 @@ import { Frame } from "../../sharedComponents/Grid/Frame"
 import { Col, Row } from "../../sharedComponents/Grid/frameDeriv"
 import { ImageView } from "../../sharedComponents/ImageView/ImageView"
 import { Input } from "../../sharedComponents/Input/Input"
+import { List } from "../../sharedComponents/List/List"
 import { LoadingIndicator } from "../../sharedComponents/LoadingIndicator/LoadingIndicator"
 import { Code } from "../../sharedComponents/Text/Code"
 import { TextFrame } from "../../sharedComponents/Text/TextFrame"
@@ -159,6 +160,24 @@ export const sections = [
                         <Code>{JSON.stringify(result, null, 2)}</Code>
                         <Code>{JSON.stringify(valid, null, 2)}</Code>
                     </Frame>
+                </Frame>
+            )
+        }
+    },
+    {
+        label: "List",
+        Component: () => {
+            const elements = useMemo(() => [
+                { key: "foo", label: "Foo" },
+                { key: "boo", label: "Boo" },
+                { key: "doo", label: "Doo" },
+            ] as { key: string, label: string }[], [])
+
+            const [list] = useFormInput(List, null, "", { props: { list: elements } })
+
+            return (
+                <Frame fill>
+                    {list}
                 </Frame>
             )
         }
