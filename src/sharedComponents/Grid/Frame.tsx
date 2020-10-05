@@ -148,7 +148,8 @@ export let Frame = forwardRef<HTMLDivElement, FrameProps>(function Frame({
 
         return <Component {...styleBuilder.build()} {...childProps}>{children}</Component>
     } else {
-        return <div {...styleBuilder.build()} ref={ref}>{children}</div>
+        let { className: _ignore, style: _, ...childProps } = props
+        return <div {...childProps} {...styleBuilder.build()} ref={ref}>{children}</div>
     }
 })
 

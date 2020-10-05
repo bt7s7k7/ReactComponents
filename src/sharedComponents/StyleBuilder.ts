@@ -56,7 +56,7 @@ export class StyleBuilder {
 }
 
 export interface StyleableProps {
-    className?: string | (string | null | false)[]
+    className?: string | (string | null | false | undefined)[]
     style?: React.CSSProperties
 }
 
