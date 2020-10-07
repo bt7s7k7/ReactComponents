@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react"
+import { Icon } from "../../codiconComponents/Icon"
 import { Button } from "../../sharedComponents/Button/Button"
 import { useForm } from "../../sharedComponents/FormHooks/useForm"
 import { useFormInput } from "../../sharedComponents/FormHooks/useFormInput"
@@ -179,6 +180,27 @@ export const sections = [
                 <Frame fill>
                     {list}
                 </Frame>
+            )
+        }
+    },
+    {
+        label: "Icon",
+        Component: () => {
+            return (
+                <Row alignMain="space-between">
+                    <Icon icon="person"></Icon>
+                    <Icon icon="sign-out"></Icon>
+                    <Icon icon="menu"></Icon>
+                    <Icon icon="sign-in"></Icon>
+                    <Icon icon="debug-step-over"></Icon>
+                    <Icon icon="account"></Icon>
+                    <Icon icon="arrow-both"></Icon>
+                    <Icon icon="eye"></Icon>
+                    <Icon icon="diff"></Icon>
+                    <Icon icon="feedback"></Icon>
+                    <Icon icon="settings"></Icon>
+                    <Icon icon="gear"></Icon>
+                </Row>
             )
         }
     }
