@@ -43,10 +43,10 @@ export class StyleBuilder {
             this.overrideClasses.push(Theme.lookupClass(className, theme))
         }
 
-        if (typeof className == "string") {
-            addClass(className)
-        } else {
+        if (className instanceof Array) {
             className.forEach(v => v && addClass(v))
+        } else {
+            className && addClass(className)
         }
     }
 
@@ -56,7 +56,7 @@ export class StyleBuilder {
 }
 
 export interface StyleableProps {
-    className?: string | (string | null | false | undefined)[]
+    className?: string | null | false | (string | null | false | undefined)[]
     style?: React.CSSProperties
 }
 

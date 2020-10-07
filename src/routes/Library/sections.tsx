@@ -1,11 +1,12 @@
 import React, { useMemo, useState } from "react"
 import { Icon } from "../../codiconComponents/Icon"
 import { Button } from "../../sharedComponents/Button/Button"
+import { Dialog } from "../../sharedComponents/Dialog/Dialog"
 import { useForm } from "../../sharedComponents/FormHooks/useForm"
 import { useFormInput } from "../../sharedComponents/FormHooks/useFormInput"
 import { Validators } from "../../sharedComponents/FormHooks/Validators"
 import { Frame } from "../../sharedComponents/Grid/Frame"
-import { Col, Row } from "../../sharedComponents/Grid/frameDeriv"
+import { Col, Row, Spacer } from "../../sharedComponents/Grid/frameDeriv"
 import { ImageView } from "../../sharedComponents/ImageView/ImageView"
 import { Input } from "../../sharedComponents/Input/Input"
 import { List } from "../../sharedComponents/List/List"
@@ -217,6 +218,30 @@ export const sections = [
                     <Icon icon="settings"></Icon>
                     <Icon icon="gear"></Icon>
                 </Row>
+            )
+        }
+    },
+    {
+        label: "Dialog",
+        Component: () => {
+            const [open, setOpen] = useState(false)
+
+            return (
+                <Frame center>
+                    <Button.Frame onClick={() => setOpen(true)}>
+                        Open
+                    </Button.Frame>
+                    {open && <Dialog onClose={() => setOpen(false)}>
+                        <Frame fill p="y5">
+                            <TextFrame bold>This is dialog</TextFrame>
+                            <TextFrame>Press close to close</TextFrame>
+                        </Frame>
+                        <Row>
+                            <Spacer />
+                            <Button.Frame onClick={() => setOpen(false)}>Close</Button.Frame>
+                        </Row>
+                    </Dialog>}
+                </Frame>
             )
         }
     }

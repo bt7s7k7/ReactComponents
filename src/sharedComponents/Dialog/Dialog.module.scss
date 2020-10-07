@@ -1,0 +1,25 @@
+.parent {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 0.1s ease-out;
+    
+    &.active {
+        background-color: rgba(0, 0, 0, 0.75);
+    }
+    
+    .dialog { 
+        animation: 0.1s ease-out scaleUp;   
+        transform: scale(0);
+        transition: transform 0.1s ease-out;
+
+        &.active {
+            transform: scale(1);                           
+        }
+    }
+}
+
+
