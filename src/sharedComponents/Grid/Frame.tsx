@@ -17,7 +17,9 @@ export interface FrameProps extends StyleableProps, React.DOMAttributes<HTMLDivE
     m?: string,
     b?: string,
     children?: React.ReactNode,
-    component?: React.ComponentType<StyleableProps>
+    component?: React.ComponentType<StyleableProps>,
+    opacity?: number,
+    soft?: boolean
 }
 
 export function parseDirectionalProp(prop: string | null, value = "var(--gap-size)") {
@@ -118,6 +120,8 @@ export let Frame = forwardRef<HTMLDivElement, FrameProps>(function Frame({
     m: margin = null,
     b: border = null,
     component: Component = null,
+    opacity,
+    soft,
     ...props
 }, ref) {
     const { colors } = useTheme()
@@ -131,6 +135,7 @@ export let Frame = forwardRef<HTMLDivElement, FrameProps>(function Frame({
         .addStyle("background", typeof background === "boolean" ? (background ? colors.background : null) : (background))
         .addStyle("padding", parseDirectionalProp(padding))
         .addStyle("margin", parseDirectionalProp(margin))
+        .addStyle("opacity", opacity)
         .addStyles(parseBorder(border))
 
     styleBuilder.addClass(styles.frame)
@@ -141,6 +146,10 @@ export let Frame = forwardRef<HTMLDivElement, FrameProps>(function Frame({
 
     if (center) {
         styleBuilder.addClass(styles.center)
+    }
+
+    if (soft) {
+        styleBuilder.addClass(styles.soft)
     }
 
     if (Component != null) {
