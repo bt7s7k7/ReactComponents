@@ -63,6 +63,19 @@ export const sections = [
                 <Button.Frame fab m="l3t1"><Icon icon="sign-out" /></Button.Frame>
                 <Button.Frame fab m="l3t1"><Icon icon="trash" /></Button.Frame>
             </Row>
+            <Button.Frame bland>
+                <Frame fill>
+                    <Row>
+                        <TextFrame>Button</TextFrame>
+                    </Row>
+                    <Row alignMain="center">
+                        <TextFrame>with non-string</TextFrame>
+                    </Row>
+                    <Row alignMain="flex-end">
+                        <TextFrame>children</TextFrame>
+                    </Row>
+                </Frame>
+            </Button.Frame>
         </>
     },
     {

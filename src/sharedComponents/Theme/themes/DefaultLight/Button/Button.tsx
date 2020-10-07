@@ -36,10 +36,13 @@ export let DefaultWhiteThemeButton: React.FC<ButtonProps> = ({ shadow = true, ch
 
     return (
         <Rippling {...props} ripples={ripples} baseColor={background} {...styleBuilder.build()}>
-            <Frame center p="a2">
-                <TextStyle color={bland ? theme.colors.foreground : theme.colors.button} noSelect>
-                    {children}
-                </TextStyle>
+            <Frame center={typeof children == "string"} p="a2">
+                {typeof children == "string"
+                    ? <TextStyle color={bland ? theme.colors.foreground : theme.colors.button} noSelect>
+                        {children}
+                    </TextStyle>
+                    : children
+                }
             </Frame>
         </Rippling>
     )
