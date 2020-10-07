@@ -10,12 +10,13 @@ import { RipplePrototype, Rippling } from "./Rippling"
 /**
  * Use this element to indicate a clickable area. Text of the button is provided as the children.
  */
-export let DefaultWhiteThemeButton: React.FC<ButtonProps> = ({ children, confirm, deny, round = false, baseColor, fab = false, ...props }) => {
+export let DefaultWhiteThemeButton: React.FC<ButtonProps> = ({ shadow = true, children, bland, confirm, deny, round = false, baseColor, fab = false, ...props }) => {
     let theme = useTheme()
     let background = baseColor ?? (fab ? theme.colors.background : theme.colors.link)
 
     if (confirm) background = theme.colors.confirm
     if (deny) background = theme.colors.deny
+    if (bland) background = theme.colors.background
 
     let styleBuilder = useStyleBuilder(props)
         .addClass(styles.button)
@@ -26,18 +27,17 @@ export let DefaultWhiteThemeButton: React.FC<ButtonProps> = ({ children, confirm
     let ripples: RipplePrototype[] = [
         {
             trigger: "down",
-            duration: 0.25,
-            brighten: fab ? -50 : 50
+            duration: 0.25
         }
     ]
 
-    !fab && styleBuilder.addClass(theme.classes.shadow)
+    !fab && shadow && styleBuilder.addClass(theme.classes.shadow)
     props.className = styleBuilder.build().className
 
     return (
         <Rippling {...props} ripples={ripples} baseColor={background} {...styleBuilder.build()}>
             <Frame center p="a2">
-                <TextStyle color={theme.colors.button} noSelect>
+                <TextStyle color={bland ? theme.colors.foreground : theme.colors.button} noSelect>
                     {children}
                 </TextStyle>
             </Frame>

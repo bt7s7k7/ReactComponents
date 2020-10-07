@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef } from "react"
+import { auto } from "../../../.."
 import { useTheme } from "../../../ThemeContext"
 
 export interface RipplePrototype extends React.DOMAttributes<HTMLDivElement> {
@@ -21,8 +22,8 @@ export interface RipplePrototype extends React.DOMAttributes<HTMLDivElement> {
      * @default 10 */
     minRadius?: number
     /** Amount to brighten the base color by in RGB values (0 - 255) 
-     * @default 50 */
-    brighten?: number
+     * @default Symbol(auto) */
+    brighten?: number | typeof auto
 }
 
 export interface RipplingProps {
@@ -80,6 +81,7 @@ export let Rippling: React.FC<RipplingProps> = ({ baseColor = null, ripples = []
         let toHex = (color: number[]) => "#" + color.map(v => Math.min(v, 255).toString(16).padStart(2, "0")).join("")
 
         let hexBaseColor = toHex(computedBaseColor.current)
+        let baseColorLum = computedBaseColor.current.reduce((a, v) => a + v, 0) / (255 * 3)
         /** Array of all ripples */
         let output = [] as { color: number[], hexColor: string, offset: number }[]
         // Push the center, because if no ripples active there will be only one keyframe for the gradient 
@@ -101,7 +103,9 @@ export let Rippling: React.FC<RipplingProps> = ({ baseColor = null, ripples = []
                         return Math.floor(base * (colorFrac) + ripple.prototype.lerpTo![i] * (1 - colorFrac))
                     })
                 } else { // brighten
-                    let add = (ripple.prototype.brighten ?? 50) * (1 - colorFrac)
+                    let brightenValue = ripple.prototype.brighten ?? auto
+                    let brightenNumber = brightenValue === auto ? 50 * (baseColorLum > 0.5 ? -1 : 1) : brightenValue
+                    let add = (brightenNumber) * (1 - colorFrac)
                     otherColor = baseColor.map(v => v + Math.floor(add))
                 }
 

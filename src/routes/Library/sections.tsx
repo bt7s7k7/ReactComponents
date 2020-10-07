@@ -45,6 +45,16 @@ export const sections = [
                     <Button.Frame m="t1" deny fill >Button</Button.Frame>
                     <Button.Frame m="t3" deny fill round >Button</Button.Frame>
                 </Col>
+                <Col fill m="l3">
+                    <TextFrame center>Bland</TextFrame>
+                    <Button.Frame m="t1" bland fill >Button</Button.Frame>
+                    <Button.Frame m="t3" bland fill round >Button</Button.Frame>
+                </Col>
+                <Col fill m="l3">
+                    <TextFrame center>Flat</TextFrame>
+                    <Button.Frame m="t1" bland shadow={false} b="a" fill >Button</Button.Frame>
+                    <Button.Frame m="t3" bland shadow={false} b="a" fill round >Button</Button.Frame>
+                </Col>
             </Row>
             <Row>
                 <TextFrame m="t3">Fab</TextFrame>

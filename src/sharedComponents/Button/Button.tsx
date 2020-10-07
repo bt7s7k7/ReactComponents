@@ -8,10 +8,14 @@ export interface ButtonProps extends StyleableProps {
     confirm?: boolean
     /** Is the button a deny/delete button (should it be red?) */
     deny?: boolean
+    /** Is the button background color */
+    bland?: boolean
     /** Is the button round */
     round?: boolean,
     baseColor?: React.CSSProperties["backgroundColor"],
-    fab?: boolean
+    fab?: boolean,
+    /** Should the button have a shadow */
+    shadow?: boolean
 }
 
 let Component: React.FC<ButtonProps> = (props) => {
