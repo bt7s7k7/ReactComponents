@@ -1,7 +1,8 @@
 import React from "react"
 import { Link, useLocation } from "react-router-dom"
+import { Card } from "../../sharedComponents/Card/Card"
 import { Frame } from "../../sharedComponents/Grid/Frame"
-import { Col, Row } from "../../sharedComponents/Grid/frameDeriv"
+import { Col } from "../../sharedComponents/Grid/frameDeriv"
 import { ScrollArea } from "../../sharedComponents/ScrollArea/ScrollArea"
 import { TextFrame } from "../../sharedComponents/Text/TextFrame"
 import { Theme } from "../../sharedComponents/Theme/Theme"
@@ -24,7 +25,7 @@ export let Library: React.FC<LibraryProps> = (props) => {
                     <Link to={`/library#` + encodeURIComponent(section.label)}>
                         <TextFrame size={Theme.textSizes.heading}>{section.label}</TextFrame>
                     </Link>
-                    <Row fill b="a" className={Theme.classes.round}>
+                    <Card fill direction="row">
                         <Theme theme={DefaultLight}>
                             <Col fill p="a3">
                                 <section.Component />
@@ -35,7 +36,7 @@ export let Library: React.FC<LibraryProps> = (props) => {
                                 <section.Component />
                             </Col>
                         </Theme>
-                    </Row>
+                    </Card>
                 </Frame>
             )}
 
