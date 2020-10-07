@@ -8,6 +8,7 @@ export function useForm<T extends Record<string, FormInput<any>>>(inputs: T, onS
     let entries = Object.entries(inputs)
     let element = useRef<HTMLFormElement | null>(null)
     let [valid, setValid] = useState(true)
+    let active = useRef(true)
 
     let newValid = true
 
@@ -27,12 +28,15 @@ export function useForm<T extends Record<string, FormInput<any>>>(inputs: T, onS
     const makeResult = () => Object.assign({}, ...entries.map(([name, { state }]) => ({ [name]: state }))) as FormResult<T>
 
     const validate = async () => {
+        if (!active.current) return
         entries.forEach(([, { state, setState }]) => setState(state))
         setTimeout(() => {
+            if (!active.current) return
             const valid = validRef.current
             if (valid) {
                 const result = Object.assign({}, ...entries.map(([key, { state }]) => ({ [key]: state })))
                 onSubmit(result)
+                active.current = false
             }
         }, 1)
     }
