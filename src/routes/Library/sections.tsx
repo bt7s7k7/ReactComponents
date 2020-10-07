@@ -169,6 +169,8 @@ export const sections = [
             let [form, result, , valid] = useForm({
                 name: useFormInput(Input, "", "Name", { validators: [Validators.required()], props: { type: "text", autocomplete: "name" } }),
                 email: useFormInput(Input, "", "Email", { validators: [Validators.required()], props: { type: "email", autocomplete: "email" } }),
+            }, result => {
+                alert(JSON.stringify(result))
             })
 
             return (

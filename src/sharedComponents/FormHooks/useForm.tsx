@@ -29,8 +29,11 @@ export function useForm<T extends Record<string, FormInput<any>>>(inputs: T, onS
     const validate = async () => {
         entries.forEach(([, { state, setState }]) => setState(state))
         setTimeout(() => {
-            let valid = validRef.current
-            alert(valid)
+            const valid = validRef.current
+            if (valid) {
+                const result = Object.assign({}, ...entries.map(([key, { state }]) => ({ [key]: state })))
+                onSubmit(result)
+            }
         }, 1)
     }
 
