@@ -46,6 +46,12 @@ export const sections = [
                     <Button.Frame m="t3" deny fill round >Button</Button.Frame>
                 </Col>
             </Row>
+            <Row>
+                <TextFrame m="t3">Fab</TextFrame>
+                <Button.Frame fab m="l3t1"><Icon icon="menu" /></Button.Frame>
+                <Button.Frame fab m="l3t1"><Icon icon="sign-out" /></Button.Frame>
+                <Button.Frame fab m="l3t1"><Icon icon="trash" /></Button.Frame>
+            </Row>
         </>
     },
     {
