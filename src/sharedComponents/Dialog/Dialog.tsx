@@ -20,7 +20,7 @@ export let Dialog: React.FC<DialogProps> = ({ className, round = true, onClose =
     }, [])
 
     return createPortal((
-        <Frame ref={backdrop} onClick={() => onClose()} center className={concatClasses(styles.parent)}>
+        <Frame direction="row" ref={backdrop} onClick={() => onClose()} center className={concatClasses(styles.parent)}>
             <Frame ref={frame} onClick={event => event.stopPropagation()} background className={concatClasses(className, styles.dialog, round && Theme.classes.round)} p="a5" {...props} />
         </Frame>
     ), document.body)
